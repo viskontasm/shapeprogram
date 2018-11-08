@@ -7,12 +7,17 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Circle extends Shape {
 
-    public Circle(String shapeName, double... points) {
-        super(shapeName, points);
+    public Circle(String shapeName, double... shapeData) {
+        super(shapeName, shapeData);
     }
 
     @Override
-    void getData(double... points) {
+    public String getShapeInformation() {
+        return "bb";
+    }
 
+    @Override
+    boolean isInsideShape(double... shapeData) {
+        return false;
     }
 }

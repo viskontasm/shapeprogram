@@ -3,28 +3,35 @@ package com.viskontas.shapesprogram;
 import com.viskontas.shapesprogram.model.Circle;
 import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.model.Triangle;
-import org.apache.commons.lang3.EnumUtils;
+import com.viskontas.shapesprogram.service.ShapeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 
-public enum AvailableShapes {
-    TRIANGLE {
-        @Override
-        public Shape createShape(String shapeName, double... points) {
-            return new Triangle(shapeName, points);
-        }
-    },
-    CIRCLE {
-        @Override
-        public Shape createShape(String shapeName, double... points) {
-            return new Circle(shapeName, points);
-        }
-    };
-    public abstract Shape createShape(String shapeName, double... points);
+@Component
+public class AvailableShapes {
 
-    public static AvailableShapes fromValue(String shapeName) {
-        if (shapeName != null && EnumUtils.isValidEnum(AvailableShapes.class, shapeName)) {
-            return valueOf(shapeName);
-        }
-        return null;
+    ShapeService shapeService;
+    private static Map<String, Shape> shapes;
+
+    @Autowired
+    public AvailableShapes(ShapeService shapeService) {
+        this.shapeService = shapeService;
+        shapes = new HashMap<>();
+        shapes.put("triangle", new Triangle());
+        shapes.put("circle", new Circle());
+    }
+
+    public Shape getShapeWithData(String shapeName, double... shapeData)  {
+        Shape shape = shapes.get(shapeName);
+        shape.setShapeName(shapeName);
+        shape.setShapeData(shapeData);
+        return shape;
+    }
+
+    public static boolean shapeExists(String shapeName) {
+        return shapes.get(shapeName) != null;
     }
 }

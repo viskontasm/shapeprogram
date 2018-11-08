@@ -1,4 +1,4 @@
-package com.viskontas.shapesprogram.service.validator;
+package com.viskontas.shapesprogram.service.validator.exception;
 
 public class ShapeException extends Exception {
 

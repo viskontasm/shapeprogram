@@ -1,15 +1,14 @@
 package com.viskontas.shapesprogram;
 
 import com.viskontas.shapesprogram.model.Shape;
-import com.viskontas.shapesprogram.repository.ShapeRepository;
+import com.viskontas.shapesprogram.service.ShapeService;
 import com.viskontas.shapesprogram.service.validator.ShapeValidatorImpl;
-import com.viskontas.shapesprogram.service.validator.ShapeException;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-//import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,18 +16,19 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Stream;
 
 
 @SpringBootApplication
-//@EnableRedisRepositories
+@CommonsLog
 public class ShapesProgramApplication  {
 
 	@Autowired
-	ShapeRepository shapeRepository;
+	ShapeValidatorImpl shapeValidator;
 	@Autowired
-	ShapeValidatorImpl java8Validator;
+	ShapeService shapeService;
+	@Autowired
+	AvailableShapes availableShapes;
 
 	public static void main(String... args) {
 		SpringApplication.run(ShapesProgramApplication.class, args);
@@ -50,34 +50,48 @@ public class ShapesProgramApplication  {
 				System.out.println("Result: " + firstInputValidation(input));
 			}
 		}*/
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("sample-data.txt").getFile());
-		try (Stream<String> stream = Files.lines(Paths.get(file.getPath()))) {
+        readFromFile();
+	}
 
+	private void readFromFile() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("sample-data.txt").getFile());
+        try (Stream<String> lineStream = Files.lines(Paths.get(file.getPath()))) {
+			decideAction(lineStream);
+            System.out.println("testend" );
+        } catch (IOException e) {
+			e.printStackTrace();
+		}
 
-			stream.map(line -> line.split(" "))
-			.forEach(shapeValues -> {
-				try {
-					String shapeName = shapeValues[0];
-					java8Validator.validate(shapeName);
-					double[] points  = Arrays.stream(shapeValues)
-						.skip(1)
-						.mapToDouble(Double::parseDouble).toArray();
-					shapeRepository.save(AvailableShapes.valueOf(
-						shapeName.toUpperCase(Locale.ENGLISH)).createShape(shapeName, points));
-					List<Shape> map = shapeRepository.findAll();
-					System.out.println("test1");
-				} catch (ShapeException e) {
-					System.out.println(e.getMessage());
+    }
+
+	private void decideAction(Stream<String> lineStream) {
+		lineStream.map(line -> line.split(" "))
+			.forEach(line -> {
+				String shapeName = line[0];
+				if (shapeValidator.isValidShapeName(shapeName)) {
+					saveShape(line);
+
+				} else if (shapeValidator.isValidLookUpCoordinates(2, line)) {
+					lookUpAllShapes();
+				} else {
+					System.out.println("There is no such shape or not correct look up coordinates: " + line);
 				}
 			});
 
-
-			System.out.println("testend" );
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		//else {
+			//throw new ShapeException("not valid input");
+		//}
 	}
 
+	private void lookUpAllShapes() {
+	}
 
+	private void saveShape(String... shapeValues) {
+		double[] shapeData = Arrays.stream(shapeValues)
+				.skip(1)
+				.mapToDouble(Double::parseDouble).toArray();
+		Shape savedShape = shapeService.createOrUpdateShape(availableShapes.getShapeWithData(shapeValues[0], shapeData));
+		System.out.println(savedShape.getShapeInformation());
+	}
 }

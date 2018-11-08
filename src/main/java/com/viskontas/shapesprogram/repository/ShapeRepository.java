@@ -5,7 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ShapeRepository extends JpaRepository<Shape, Integer> {
 
-    //void save(Shape shape);
-    //Map<String, Shape> findAll();
-    //void delete(String id);
 }

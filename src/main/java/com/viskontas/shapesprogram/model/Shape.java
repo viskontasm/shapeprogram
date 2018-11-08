@@ -14,12 +14,34 @@ public abstract class Shape {
     @GeneratedValue
     protected Long id;
     protected String shapeName;
-    protected double[] points;
+    protected double[] shapeData;
 
-    protected Shape(String shapeName, double... points) {
+    protected Shape(String shapeName, double... shapeData) {
         this.shapeName = shapeName;
-        this.points = points.clone();
+        this.shapeData = shapeData.clone();
     }
 
-    abstract void getData(double... points);
+    abstract boolean isInsideShape(double... shapeData);
+    public abstract String getShapeInformation();
+
+    public String getShapeName() {
+        return shapeName;
+    }
+
+    public double[] getShapeData() {
+        if (shapeData != null) {
+            return shapeData.clone();
+        }
+        return null;
+    }
+
+    public void setShapeData(double... shapeData) {
+        if (shapeData != null) {
+            this.shapeData = shapeData.clone();
+        }
+    }
+
+    public void setShapeName(String shapeName) {
+        this.shapeName = shapeName;
+    }
 }

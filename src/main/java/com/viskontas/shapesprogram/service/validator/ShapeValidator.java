@@ -1,5 +1,7 @@
 package com.viskontas.shapesprogram.service.validator;
 
 public interface ShapeValidator {
-   void validate(String input) throws ShapeException;
+   boolean isValidShapeName(String shapeName);
+   boolean isValidShapeData(int valuesCount, String... shapeValues);
+   boolean isValidLookUpCoordinates(int valuesCount, String... shapeValues);
 }
