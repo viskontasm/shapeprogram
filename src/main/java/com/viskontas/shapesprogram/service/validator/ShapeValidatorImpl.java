@@ -18,8 +18,10 @@ public class ShapeValidatorImpl implements ShapeValidator {
 
     @Override
     public boolean isValidShapeData(int valuesCount, String... shapeValues) {
-        return ValidatorUtil.hasEnoughValues(valuesCount).test(shapeValues.length).isValid()
-            && Arrays.stream(shapeValues).allMatch(s -> ValidatorUtil.isDouble.test(s).isValid());
+        String errors = ValidatorUtil.hasEnoughValues(valuesCount).test(shapeValues.length)
+                .getErrorMessageIfInvalid("Not correct data values count. ").orElse("");
+            boolean error = Arrays.stream(shapeValues).allMatch(s -> ValidatorUtil.isDouble.test(s).isValid());
+                    //.getErrorMessageIfInvalid("Coordinate is not number").orElse(""));
     }
 
     @Override

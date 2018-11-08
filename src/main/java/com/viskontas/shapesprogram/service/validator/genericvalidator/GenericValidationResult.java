@@ -16,7 +16,7 @@ public class GenericValidationResult {
     public static GenericValidationResult fail() {
         return new GenericValidationResult(false);
     }
-    public Optional< String > getFieldNameIfInvalid(String field) {
+    public Optional< String > getErrorMessageIfInvalid(String field) {
         return valid ? Optional.empty() : Optional.of(field);
     }
 }

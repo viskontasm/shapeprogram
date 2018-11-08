@@ -22,8 +22,7 @@ public class ShapeService {
 
         if (shapeOptional.isPresent()) {
             Shape shapeFromDb = shapeOptional.get();
-            shapeFromDb.setShapeData(DoubleStream.concat(Arrays.stream(shapeFromDb.getShapeData()),
-                        Arrays.stream(shape.getShapeData())).toArray());
+            shapeFromDb.addShapeValues(shape.getShapeData().get(0));
             return save(shapeFromDb);
         } else {
             return save(shape);

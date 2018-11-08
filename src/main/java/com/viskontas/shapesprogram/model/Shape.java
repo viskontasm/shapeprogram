@@ -2,9 +2,13 @@ package com.viskontas.shapesprogram.model;
 
 import lombok.NoArgsConstructor;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -12,33 +16,34 @@ public abstract class Shape {
 
     @Id
     @GeneratedValue
-    protected Long id;
+    protected long id;
+    @ElementCollection
+    protected List<double[]> shapeData;
+    protected int shapeDataCount;
     protected String shapeName;
-    protected double[] shapeData;
 
-    protected Shape(String shapeName, double... shapeData) {
-        this.shapeName = shapeName;
-        this.shapeData = shapeData.clone();
+    protected Shape(int shapeDataCount) {
+        this.shapeDataCount = shapeDataCount;
+        shapeData = new ArrayList<>();
     }
 
-    abstract boolean isInsideShape(double... shapeData);
+    //public abstract boolean isInsideShape(double... shapeData);
     public abstract String getShapeInformation();
 
     public String getShapeName() {
         return shapeName;
     }
 
-    public double[] getShapeData() {
-        if (shapeData != null) {
-            return shapeData.clone();
-        }
-        return null;
+    public List<double[]> getShapeData() {
+       return Collections.unmodifiableList(shapeData);
     }
 
-    public void setShapeData(double... shapeData) {
-        if (shapeData != null) {
-            this.shapeData = shapeData.clone();
-        }
+    public int getShapeDataCount() {
+        return shapeDataCount;
+    }
+
+    public void addShapeValues(double... shapeValues) {
+        shapeData.add(shapeValues);
     }
 
     public void setShapeName(String shapeName) {

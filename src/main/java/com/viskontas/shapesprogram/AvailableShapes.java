@@ -20,14 +20,14 @@ public class AvailableShapes {
     public AvailableShapes(ShapeService shapeService) {
         this.shapeService = shapeService;
         shapes = new HashMap<>();
-        shapes.put("triangle", new Triangle());
-        shapes.put("circle", new Circle());
+        shapes.put("triangle", new Triangle(6));
+        shapes.put("circle", new Circle(3));
     }
 
     public Shape getShapeWithData(String shapeName, double... shapeData)  {
         Shape shape = shapes.get(shapeName);
         shape.setShapeName(shapeName);
-        shape.setShapeData(shapeData);
+        shape.addShapeValues(shapeData);
         return shape;
     }
 

@@ -1,14 +1,15 @@
 package com.viskontas.shapesprogram.model;
 
 import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 
 @Entity
 @NoArgsConstructor
 public class Circle extends Shape {
 
-    public Circle(String shapeName, double... shapeData) {
-        super(shapeName, shapeData);
+    public Circle(int shapeDataCount) {
+        super(shapeDataCount);
     }
 
     @Override
@@ -16,8 +17,8 @@ public class Circle extends Shape {
         return "bb";
     }
 
-    @Override
-    boolean isInsideShape(double... shapeData) {
-        return false;
-    }
+    //@Override
+    //public boolean isInsideShape(double... shapeData) {
+    //    return false;
+    //}
 }

@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 
@@ -70,12 +69,17 @@ public class ShapesProgramApplication  {
 			.forEach(line -> {
 				String shapeName = line[0];
 				if (shapeValidator.isValidShapeName(shapeName)) {
-					saveShape(line);
+					double[] shapeData = Arrays.stream(line)
+							.skip(1)
+							.mapToDouble(Double::parseDouble).toArray();
+					Shape shape = availableShapes.getShapeWithData(shapeName, shapeData);
+					shapeValidator.isValidShapeData(shape.getShapeDataCount(), line);
 
+					saveShape(shape);
 				} else if (shapeValidator.isValidLookUpCoordinates(2, line)) {
 					lookUpAllShapes();
 				} else {
-					System.out.println("There is no such shape or not correct look up coordinates: " + line);
+					System.out.println("There is no such shape or not correct look up coordinates: " + Arrays.toString(line));
 				}
 			});
 
@@ -87,11 +91,8 @@ public class ShapesProgramApplication  {
 	private void lookUpAllShapes() {
 	}
 
-	private void saveShape(String... shapeValues) {
-		double[] shapeData = Arrays.stream(shapeValues)
-				.skip(1)
-				.mapToDouble(Double::parseDouble).toArray();
-		Shape savedShape = shapeService.createOrUpdateShape(availableShapes.getShapeWithData(shapeValues[0], shapeData));
-		System.out.println(savedShape.getShapeInformation());
+	private void saveShape(Shape shape) {
+		shapeService.createOrUpdateShape(shape);
+		System.out.println(shape.getShapeInformation());
 	}
 }
