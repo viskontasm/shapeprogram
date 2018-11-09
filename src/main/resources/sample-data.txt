@@ -1,5 +1,5 @@
 triangle 0 0 0 5 2 0
-triangle 0 0 0 5 -2 0
+triangle 0 0 0 5 -2 0 0
 nera 1 1 1 1
-circle 0 0 5
-1.12 aa
+circle 0 0
+1.12 12

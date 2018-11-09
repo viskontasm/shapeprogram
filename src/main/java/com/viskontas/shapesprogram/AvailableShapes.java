@@ -24,10 +24,9 @@ public class AvailableShapes {
         shapes.put("circle", new Circle(3));
     }
 
-    public Shape getShapeWithData(String shapeName, double... shapeData)  {
+    public Shape getShape(String shapeName) {
         Shape shape = shapes.get(shapeName);
         shape.setShapeName(shapeName);
-        shape.addShapeValues(shapeData);
         return shape;
     }
 

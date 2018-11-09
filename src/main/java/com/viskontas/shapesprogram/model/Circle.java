@@ -14,11 +14,15 @@ public class Circle extends Shape {
 
     @Override
     public String getShapeInformation() {
-        return "bb";
+        int identifier = shapeData.size()-1;
+        double[] rawCoordinates = shapeData.get(identifier);
+        return "circle-" + identifier + " with centre o1("
+            + rawCoordinates[0] + "," + rawCoordinates[1] + ") and radius "
+            + rawCoordinates[2] + ";";
     }
 
-    //@Override
-    //public boolean isInsideShape(double... shapeData) {
-    //    return false;
-    //}
+    @Override
+    public boolean isInsideShape(double... shapeData) {
+        return false;
+    }
 }

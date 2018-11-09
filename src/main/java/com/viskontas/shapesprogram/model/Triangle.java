@@ -15,11 +15,15 @@ public class Triangle extends Shape {
     public String getShapeInformation() {
         int identifier = shapeData.size()-1;
         double[] rawCoordinates = shapeData.get(identifier);
-        return "triangle-" + identifier + " with coordinates - x1("
+        return "triangle-" + identifier + " with coordinates x1("
                 + rawCoordinates[0] + "," + rawCoordinates[1] + "), x2("
                 + rawCoordinates[2] + "," + rawCoordinates[3] + "), x3("
                 + rawCoordinates[4] + "," + rawCoordinates[5] + ");";
     }
 
+    @Override
+    public boolean isInsideShape(double... shapeData) {
+        return false;
+    }
     //https://www.geeksforgeeks.org/check-whether-a-given-point-lies-inside-a-triangle-or-not/
 }

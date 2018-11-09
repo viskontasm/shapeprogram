@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.DoubleStream;
+import java.util.stream.Collectors;
 
 @Service
 public class ShapeService {
@@ -35,5 +35,13 @@ public class ShapeService {
 
     public List<Shape> findAll() {
         return shapeRepository.findAll();
+    }
+
+    public void lookUpAllShapes( String... line) {
+        double[] shapeData = Arrays.stream(line)
+            .skip(1)
+            .mapToDouble(Double::parseDouble).toArray();
+        List<Shape> shapes = findAll().parallelStream()
+            .filter(shape -> shape.isInsideShape(shapeData)).collect(Collectors.toList());
     }
 }
