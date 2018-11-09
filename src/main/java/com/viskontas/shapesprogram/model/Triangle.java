@@ -24,7 +24,7 @@ public class Triangle extends Shape {
     @Override
     public void printInsideShapes(double... lookUpPoint) {
         System.out.println("All shapes, which have inside coordinate x("
-            + lookUpPoint[0] + "," + lookUpPoint[1] + ") inside:");
+            + lookUpPoint[0] + "," + lookUpPoint[1] + "):");
 
         IntStream.range(0, shapeData.size())
             .filter(shapeDataId -> insideCalculation(shapeDataId, lookUpPoint))

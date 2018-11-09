@@ -16,7 +16,7 @@ public class ShapeService {
 
     public Shape createOrUpdateShape(Shape shape) {
         Optional<Shape> shapeOptional = findAll().stream()
-                .filter(s -> shape.getShapeName().equals(s.getShapeName()))
+                .filter(sh -> shape.getShapeName().equals(sh.getShapeName()))
                 .findFirst();
 
         if (shapeOptional.isPresent()) {
@@ -40,7 +40,6 @@ public class ShapeService {
     public void lookUpAllShapes( String... line) {
         double[] shapeData = Arrays.stream(line)
             .mapToDouble(Double::parseDouble).toArray();
-        findAll().stream()
-            .forEach(shape -> shape.printInsideShapes(shapeData));
+        findAll().forEach(shape -> shape.printInsideShapes(shapeData));
     }
 }

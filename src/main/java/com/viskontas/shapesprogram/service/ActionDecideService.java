@@ -42,8 +42,6 @@ public class ActionDecideService {
 
                         shapeService.createOrUpdateShape(shape);
                         shape.printShapeInformation(shape.getShapeData().size()-1);
-                        List<Shape> all = shapeService.findAll();
-                        System.out.println("aa");
                     } else {
                         shapeValidator.validateDouble(firstValue);
                         shapeValidator.validateLookUpCoordinates(2, line);
