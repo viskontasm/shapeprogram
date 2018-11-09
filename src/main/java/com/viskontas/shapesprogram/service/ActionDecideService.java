@@ -6,19 +6,24 @@ import com.viskontas.shapesprogram.service.validator.impl.ShapeValidatorImpl;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
 public class ActionDecideService {
 
-    @Autowired
     ShapeValidatorImpl shapeValidator;
-    @Autowired
     AvailableShapes availableShapes;
-    @Autowired
     ShapeService shapeService;
+
+    @Autowired
+    public ActionDecideService(ShapeValidatorImpl shapeValidator,
+        AvailableShapes availableShapes, ShapeService shapeService) {
+        this.shapeValidator = shapeValidator;
+        this.availableShapes = availableShapes;
+        this.shapeService = shapeService;
+    }
 
     public void decide(Stream<String> lineStream) {
         lineStream.map(line -> line.split(" "))
@@ -36,7 +41,9 @@ public class ActionDecideService {
                         shape.addShapeValues(shapeData);
 
                         shapeService.createOrUpdateShape(shape);
-                        System.out.println(shape.getShapeInformation());
+                        shape.printShapeInformation(shape.getShapeData().size()-1);
+                        List<Shape> all = shapeService.findAll();
+                        System.out.println("aa");
                     } else {
                         shapeValidator.validateDouble(firstValue);
                         shapeValidator.validateLookUpCoordinates(2, line);

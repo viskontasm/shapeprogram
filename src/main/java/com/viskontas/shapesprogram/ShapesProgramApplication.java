@@ -49,7 +49,7 @@ public class ShapesProgramApplication  {
         File file = new File(classLoader.getResource("sample-data.txt").getFile());
         try (Stream<String> lineStream = Files.lines(Paths.get(file.getPath()))) {
             actionDecideService.decide(lineStream);
-            System.out.println("testend" );
+            System.out.println("THE END" );
         } catch (IOException e) {
             e.printStackTrace();
         }

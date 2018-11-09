@@ -27,8 +27,8 @@ public abstract class Shape {
         shapeData = new ArrayList<>();
     }
 
-    public abstract boolean isInsideShape(double... shapeData);
-    public abstract String getShapeInformation();
+    public abstract void printInsideShapes(double... loopUpPoint);
+    public abstract void printShapeInformation(int shapeDataId);
 
     public String getShapeName() {
         return shapeName;

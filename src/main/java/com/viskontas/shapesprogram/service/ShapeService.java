@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ShapeService {
@@ -22,7 +21,8 @@ public class ShapeService {
 
         if (shapeOptional.isPresent()) {
             Shape shapeFromDb = shapeOptional.get();
-            shapeFromDb.addShapeValues(shape.getShapeData().get(0));
+            int lastIndex = shape.getShapeData().size()-1;
+            shapeFromDb.addShapeValues(shape.getShapeData().get(lastIndex));
             return save(shapeFromDb);
         } else {
             return save(shape);
@@ -39,9 +39,8 @@ public class ShapeService {
 
     public void lookUpAllShapes( String... line) {
         double[] shapeData = Arrays.stream(line)
-            .skip(1)
             .mapToDouble(Double::parseDouble).toArray();
-        List<Shape> shapes = findAll().parallelStream()
-            .filter(shape -> shape.isInsideShape(shapeData)).collect(Collectors.toList());
+        findAll().stream()
+            .forEach(shape -> shape.printInsideShapes(shapeData));
     }
 }
