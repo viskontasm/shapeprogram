@@ -1,7 +1,7 @@
 package com.viskontas.shapesprogram.model;
 
 import lombok.NoArgsConstructor;
-import java.util.stream.IntStream;
+import java.util.List;
 import javax.persistence.Entity;
 
 @Entity
@@ -23,15 +23,18 @@ public class Triangle extends Shape {
 
     @Override
     public void printInsideShapes(double... lookUpPoint) {
-        System.out.println("All shapes, which have inside coordinate x("
-            + lookUpPoint[0] + "," + lookUpPoint[1] + "):");
-
-        IntStream.range(0, shapeData.size())
-            .filter(shapeDataId -> insideCalculation(shapeDataId, lookUpPoint))
-            .forEach(this::printShapeInformation);
+        List<Integer> shapeDataIds = getShapeIdsWhichInsideShape(lookUpPoint);
+        if (shapeDataIds.isEmpty()) {
+            System.out.println("No such shapes.");
+        } else {
+            System.out.println("All triangles, which have inside coordinate x("
+                    + lookUpPoint[0] + "," + lookUpPoint[1] + "):");
+            shapeDataIds.forEach(this::printShapeInformation);
+        }
     }
 
-    private boolean insideCalculation(int shapeDataId, double... lookUpPoint) {
+    @Override
+    boolean insideCalculation(int shapeDataId, double... lookUpPoint) {
         double[] rawCoord = shapeData.get(shapeDataId);
         double mainArea = surfaceArea(rawCoord[0], rawCoord[1], rawCoord[2],
             rawCoord[3], rawCoord[4], rawCoord[5]);
@@ -43,10 +46,7 @@ public class Triangle extends Shape {
         return mainArea == smal1Area1 + smal1Area2 + smal1Area3;
     }
 
-    private double surfaceArea(double x1, double y1, double x2, double y2, double x3, double y3)
-    {
+    private double surfaceArea(double x1, double y1, double x2, double y2, double x3, double y3) {
         return Math.abs((x1*(y2-y3) + x2*(y3-y1)+ x3*(y1-y2))/2);
     }
 }
-//triangle calculation info:
-//https://www.geeksforgeeks.org/check-whether-a-given-point-lies-inside-a-triangle-or-not/

@@ -2,8 +2,6 @@ package com.viskontas.shapesprogram.model;
 
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 
 @Entity
@@ -25,5 +23,10 @@ public class Circle extends Shape {
     @Override
     public void printInsideShapes(double... loopUpPoint) {
 
+    }
+
+    @Override
+    protected boolean insideCalculation(int shapeDataId, double... lookUpPoint) {
+        return false;
     }
 }

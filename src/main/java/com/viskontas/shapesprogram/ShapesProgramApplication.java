@@ -1,6 +1,6 @@
 package com.viskontas.shapesprogram;
 
-import com.viskontas.shapesprogram.service.ActionDecideService;
+import com.viskontas.shapesprogram.service.ActionDecisionService;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 public class ShapesProgramApplication  {
 
     @Autowired
-    ActionDecideService actionDecideService;
+    ActionDecisionService actionDecisionService;
 
     public static void main(String... args) {
         SpringApplication.run(ShapesProgramApplication.class, args);
@@ -48,7 +48,7 @@ public class ShapesProgramApplication  {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("sample-data.txt").getFile());
         try (Stream<String> lineStream = Files.lines(Paths.get(file.getPath()))) {
-            actionDecideService.decide(lineStream);
+            actionDecisionService.decide(lineStream);
             System.out.println("THE END" );
         } catch (IOException e) {
             e.printStackTrace();

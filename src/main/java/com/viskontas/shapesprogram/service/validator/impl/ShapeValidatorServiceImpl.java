@@ -1,24 +1,28 @@
 package com.viskontas.shapesprogram.service.validator.impl;
 
-import com.viskontas.shapesprogram.service.validator.ShapeValidatorService;
+import com.viskontas.shapesprogram.model.Shape;
+import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
 import com.viskontas.shapesprogram.service.validator.genericvalidator.ValidatorUtil;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
-public class ShapeValidatorImpl implements ShapeValidatorService {
+@NoArgsConstructor
+public class ShapeValidatorServiceImpl implements ShapeValidatorService {
 
     @Override
     public boolean isOkShapeName(String shapeName) {
-        return ValidatorUtil.notNullString.and(ValidatorUtil.notEmptyString)
-            .and(ValidatorUtil.isShape).test(shapeName).isValid();
+        return ValidatorUtil.NOT_NULL_STRING.and(ValidatorUtil.NOT_EMPTY_STRING)
+            .and(ValidatorUtil.IS_SHAPE).test(shapeName).isValid();
     }
 
     @Override
     public void  validateDouble(String value) throws ShapeException {
-        String error = ValidatorUtil.isDouble.test(value)
+        String error = ValidatorUtil.IS_DOUBLE.test(value)
             .getErrorMessageIfInvalid("First value is not shape and not coordinate: ").orElse("");
         if (!error.isEmpty()) {
             throw new ShapeException(error);
@@ -27,10 +31,10 @@ public class ShapeValidatorImpl implements ShapeValidatorService {
 
     @Override
     public void validateShapeData(int valuesCount, String... shapeValues) throws ShapeException {
-        String errors = ValidatorUtil.hasEnoughValues(valuesCount).test(shapeValues.length)
+        String errors = ValidatorUtil.enoughValues(valuesCount).test(shapeValues.length)
                 .getErrorMessageIfInvalid("Not correct data values count.").orElse("");
         errors += Arrays.stream(shapeValues)
-                .allMatch(s -> ValidatorUtil.isDouble.test(s).isValid()) ? "" : "Not number coordinate exists";
+                .allMatch(s -> ValidatorUtil.IS_DOUBLE.test(s).isValid()) ? "" : "Not number coordinate exists";
         if (!errors.isEmpty()) {
             throw new ShapeException(errors+": ");
         }
@@ -39,5 +43,14 @@ public class ShapeValidatorImpl implements ShapeValidatorService {
     @Override
     public void validateLookUpCoordinates(int valuesCount, String... shapeValues) throws ShapeException {
         validateShapeData(valuesCount,shapeValues);
+    }
+
+    @Override
+    public void validateShapesAvailability(List<Shape> shape) throws ShapeException {
+        String error = ValidatorUtil.NOT_EMPTY_LIST.test(shape)
+                .getErrorMessageIfInvalid("No shapes found:").orElse("");
+        if (!error.isEmpty()) {
+            throw new ShapeException(error);
+        }
     }
 }

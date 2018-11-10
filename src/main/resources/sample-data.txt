@@ -1,4 +1,5 @@
-triangle 0 0 0 5 5 0
+1 2
+triangle 0 0 0 5 5.0 0
 triangle 0 0 0 5 -2 0 0
 triangle 0 0 0 5 -2 0
 nera 1 1 1 1

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Entity
 @NoArgsConstructor
@@ -29,6 +31,7 @@ public abstract class Shape {
 
     public abstract void printInsideShapes(double... loopUpPoint);
     public abstract void printShapeInformation(int shapeDataId);
+    abstract boolean insideCalculation(int shapeDataId, double... lookUpPoint);
 
     public String getShapeName() {
         return shapeName;
@@ -48,5 +51,12 @@ public abstract class Shape {
 
     public void setShapeName(String shapeName) {
         this.shapeName = shapeName;
+    }
+
+    protected List<Integer> getShapeIdsWhichInsideShape(double... lookUpPoint) {
+        return IntStream.range(0, shapeData.size())
+                .filter(shapeDataId -> insideCalculation(shapeDataId, lookUpPoint))
+                .mapToObj(Integer::valueOf)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

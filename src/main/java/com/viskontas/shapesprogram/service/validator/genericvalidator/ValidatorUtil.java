@@ -2,23 +2,26 @@ package com.viskontas.shapesprogram.service.validator.genericvalidator;
 
 import com.viskontas.shapesprogram.AvailableShapes;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 import java.util.Objects;
 
 @Component
 public class ValidatorUtil {
 
-//https://dzone.com/articles/server-side-validator-using-functional-interfaces
+    //
 
-
-    public static final Validation <String> notNullString = GenericValidation.from(Objects::nonNull);
-    public static final Validation <String> notEmptyString = GenericValidation.from(s -> !s.isEmpty());
-    public static final Validation <String> isShape = GenericValidation.from(
+    public static final Validation <String> NOT_NULL_STRING = GenericValidation.from(Objects::nonNull);
+    public static final Validation <String> NOT_EMPTY_STRING = GenericValidation.from(s -> !s.isEmpty());
+    public static final Validation <String> IS_SHAPE = GenericValidation.from(
         AvailableShapes::shapeExists);
 
-    public static final Validation <String> isDouble = GenericValidation.from(
+    public static final Validation <String> IS_DOUBLE = GenericValidation.from(
         ValidatorUtil::canParseDouble);
 
-    public static Validation<Integer> hasEnoughValues(int size){
+    public static final Validation <List<?>> NOT_EMPTY_LIST = GenericValidation.from(list -> !list.isEmpty());
+
+    public static Validation<Integer> enoughValues(int size){
         return GenericValidation.from(s -> s == size);
     }
 
