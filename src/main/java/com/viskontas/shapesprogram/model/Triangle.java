@@ -22,11 +22,12 @@ public class Triangle extends Shape {
     boolean insideCalculation(int shapeDataId, double... lookUpPoint) {
         double[] rawCoord = shapeData.get(shapeDataId);
 
+        double allArea = getSurfaceArea(shapeDataId);
         double smal1Area1 = calculateSurfaceArea(lookUpPoint[0], lookUpPoint[1], rawCoord[2], rawCoord[3], rawCoord[4], rawCoord[5]);
         double smal1Area2 = calculateSurfaceArea(rawCoord[0], rawCoord[1], lookUpPoint[0], lookUpPoint[1], rawCoord[4], rawCoord[5]);
         double smal1Area3 = calculateSurfaceArea(rawCoord[0], rawCoord[1], rawCoord[2], rawCoord[3], lookUpPoint[0], lookUpPoint[1]);
-        boolean result = surfaceArea == smal1Area1 + smal1Area2 + smal1Area3;
-        return result;
+
+        return  allArea == smal1Area1 + smal1Area2 + smal1Area3;
     }
 
     private double calculateSurfaceArea(double x1, double y1, double x2, double y2, double x3, double y3) {
@@ -34,9 +35,9 @@ public class Triangle extends Shape {
     }
 
     @Override
-    public void setSurfaceArea(int shapeDataId) {
+    public double getSurfaceArea(int shapeDataId) {
         double[] rawCoord = extractRawCoordinates(shapeDataId);
-        surfaceArea += calculateSurfaceArea(rawCoord[0], rawCoord[1], rawCoord[2],
+        return calculateSurfaceArea(rawCoord[0], rawCoord[1], rawCoord[2],
                 rawCoord[3], rawCoord[4], rawCoord[5]);
     }
 }

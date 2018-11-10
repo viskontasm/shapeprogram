@@ -26,7 +26,6 @@ public class ShapeSaveServiceImpl extends ShapeService {
                 Shape shape = availableShapes.get(firstItem);
                 validateShapeForSave(shape, items);
                 fillShapeWithData(shape, items);
-                setSurfaceArea(shape);
                 createOrUpdateShape(shape);
                 printSavedShape(shape);
             }
@@ -36,13 +35,10 @@ public class ShapeSaveServiceImpl extends ShapeService {
     }
 
     private void printSavedShape(Shape shape) {
+        int shapeId = shape.getShapeData().size()-1;
         System.out.println("Shape added:");
-        shape.printShapeInformation(shape.getShapeData().size()-1);
-        shape.printShapeArea();
-    }
-
-    private void setSurfaceArea (Shape shape) {
-        shape.setSurfaceArea(shape.getShapeData().size()-1);
+        shape.printShapeInformation(shapeId);
+        shape.printShapeArea(shapeId);
     }
 
     private void validateShapeForSave(Shape shape, String... line) throws ShapeException {

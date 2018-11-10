@@ -28,10 +28,10 @@ public class Donut extends Shape {
     }
 
     @Override
-    public void setSurfaceArea(int shapeDataId) {
+    public double getSurfaceArea(int shapeDataId) {
         double[] rawCoord = extractRawCoordinates(shapeDataId);
         double smallCircleArea = circleSurfaceArea(rawCoord[2]);
         double bigCircleArea = circleSurfaceArea(rawCoord[3]);
-        surfaceArea += bigCircleArea - smallCircleArea;
+        return bigCircleArea - smallCircleArea;
     }
 }

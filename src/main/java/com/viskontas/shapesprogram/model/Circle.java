@@ -25,7 +25,7 @@ public class Circle extends Shape {
     }
 
     @Override
-    public void setSurfaceArea(int shapeDataId) {
-        surfaceArea += circleSurfaceArea(extractRawCoordinates(shapeDataId)[2]);
+    public double getSurfaceArea(int shapeDataId) {
+        return circleSurfaceArea(extractRawCoordinates(shapeDataId)[2]);
     }
 }
