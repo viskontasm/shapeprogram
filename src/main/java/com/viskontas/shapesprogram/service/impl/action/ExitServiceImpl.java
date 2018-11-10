@@ -11,6 +11,7 @@ public class ExitServiceImpl implements ActionResolverService {
 
     @Override
     public void doCommand(String... items) {
+        System.out.println("Bye. Have a nice day!");
         System.exit(0);
     }
 

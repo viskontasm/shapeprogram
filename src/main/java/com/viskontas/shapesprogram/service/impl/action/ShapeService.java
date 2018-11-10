@@ -1,6 +1,7 @@
 package com.viskontas.shapesprogram.service.impl.action;
 
 import com.viskontas.shapesprogram.model.Circle;
+import com.viskontas.shapesprogram.model.Donut;
 import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.model.Triangle;
 import com.viskontas.shapesprogram.repository.ShapeRepository;
@@ -24,6 +25,7 @@ public abstract class ShapeService implements ActionResolverService {
         availableShapes = new HashMap<>();
         availableShapes.put("triangle", new Triangle());
         availableShapes.put("circle", new Circle());
+        availableShapes.put("donut", new Donut());
     }
 
     @Override

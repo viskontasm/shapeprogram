@@ -1,7 +1,6 @@
 package com.viskontas.shapesprogram.service;
 
 import com.viskontas.shapesprogram.model.Shape;
-import com.viskontas.shapesprogram.model.Triangle;
 import com.viskontas.shapesprogram.repository.ShapeRepository;
 import com.viskontas.shapesprogram.service.impl.ShapeValidatorServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ExitServiceImpl;
@@ -144,13 +143,42 @@ public class ActionResolverServiceTest {
 
     @Test
     public void do_comamnd_save_donut() {
-        //TODO
+        //may not work on OS not Windows
+        List<Shape> noShapesFound = new ArrayList<>();
+        when(shapeRepository.findAll()).thenReturn(noShapesFound);
+
+        Shape shape = saveTriangle.getAvailableShapes().get("donut");
+
+        String line = "donut 0 0 3 5";
+        saveTriangle.doCommand(line.split(" "));
+
+        verify(shapeRepository, times(1)).save(shape);
+
+        String expectedString = "Shape added:\r\n" +
+                "\tdonut-0 with centre o1(0.0,0.0) and radiuses 3.0 and 5.0;\r\n";
+        assertEquals(expectedString, outContent.toString());
     }
 
     @Test
     public void do_comamnd_update_donut() {
-        //TODO
+        //may not work on OS not Windows
+        Shape shape = saveTriangle.getAvailableShapes().get("donut");
+        double[] shapeValues = {0, 0, 1, 5};
+        shape.addShapeValues(shapeValues);
+        List<Shape> oneShapeFound = new ArrayList<>();
+        oneShapeFound.add(shape);
+
+        when(shapeRepository.findAll()).thenReturn(oneShapeFound);
+
+        String line = "donut 0 0 5 10";
+        saveTriangle.doCommand(line.split(" "));
+
+        verify(shapeRepository, times(1)).save(shape);
+
+        String expectedString = "Shape added:\r\n" +
+                "\tdonut-2 with centre o1(0.0,0.0) and radiuses 5.0 and 10.0;\r\n";
+        assertEquals(expectedString, outContent.toString());
     }
 
-    //TODO other shapes
+    //TODO other shapes if will be
 }

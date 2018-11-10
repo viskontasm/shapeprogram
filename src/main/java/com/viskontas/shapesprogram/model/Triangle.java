@@ -1,6 +1,5 @@
 package com.viskontas.shapesprogram.model;
 
-import java.util.List;
 import javax.persistence.Entity;
 
 @Entity
@@ -20,18 +19,6 @@ public class Triangle extends Shape {
     }
 
     @Override
-    public void printInsideShapes(double... lookUpPoint) {
-        List<Integer> shapeDataIds = getShapeIdsWhichInsideShape(lookUpPoint);
-        if (shapeDataIds.isEmpty()) {
-            System.out.println("No such shapes.");
-        } else {
-            System.out.println("All triangles, which have inside coordinate x("
-                    + lookUpPoint[0] + "," + lookUpPoint[1] + "):");
-            shapeDataIds.forEach(this::printShapeInformation);
-        }
-    }
-
-    @Override
     boolean insideCalculation(int shapeDataId, double... lookUpPoint) {
         double[] rawCoord = shapeData.get(shapeDataId);
         double mainArea = surfaceArea(rawCoord[0], rawCoord[1], rawCoord[2],
@@ -45,6 +32,6 @@ public class Triangle extends Shape {
     }
 
     private double surfaceArea(double x1, double y1, double x2, double y2, double x3, double y3) {
-        return Math.abs((x1*(y2-y3) + x2*(y3-y1)+ x3*(y1-y2))/2);
+        return StrictMath.abs((x1*(y2-y3) + x2*(y3-y1)+ x3*(y1-y2))/2);
     }
 }

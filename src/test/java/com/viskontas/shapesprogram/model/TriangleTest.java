@@ -27,7 +27,7 @@ public class TriangleTest extends ShapeTest {
     public void print_inside_fail_triangle() {
         double[] lookUpPoint = {5, 5};
         triangle.printInsideShapes(lookUpPoint);
-        String expectedString = "No such shapes.";
+        String expectedString = "No such triangles.";
         assertEquals(expectedString, outContent.toString().trim());
     }
 
@@ -35,6 +35,12 @@ public class TriangleTest extends ShapeTest {
     public void inside_calculation_triangle_success() {
         double[] lookUpPoint = {1, 2};
         assertTrue(triangle.insideCalculation(0, lookUpPoint));
+    }
+
+    @Test
+    public void inside_calculation_triangle_success_on_line() {
+        double[] lookUpPoint = {0, 3};
+        assertTrue(circle.insideCalculation(0, lookUpPoint));
     }
 
     @Test

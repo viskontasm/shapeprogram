@@ -60,8 +60,15 @@ public class ActionDecisionServiceTest {
 
     @Test
     public void decicion_to_save_donut()  {
-        //TODO
+        String line = "donut 0 0 3 5";
+        List <String> lineList = new ArrayList<>();
+        lineList.add(line);
+        actionDecisionService.decide(lineList.stream());
+        verify(shapeSaveService, times(1))
+                .doCommand(line.split(" "));
     }
+
+    //TODO other shapes if will be
 
     @Test
     public void decicion_find_inside_shapes() {

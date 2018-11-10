@@ -30,7 +30,6 @@ public abstract class Shape {
         shapeData = new ArrayList<>();
     }
 
-    public abstract void printInsideShapes(double... loopUpPoint);
     public abstract void printShapeInformation(int shapeDataId);
     abstract boolean insideCalculation(int shapeDataId, double... lookUpPoint);
 
@@ -52,6 +51,17 @@ public abstract class Shape {
 
     public void setShapeName(String shapeName) {
         this.shapeName = shapeName;
+    }
+
+    public void printInsideShapes(double... lookUpPoint) {
+        List<Integer> shapeDataIds = getShapeIdsWhichInsideShape(lookUpPoint);
+        if (shapeDataIds.isEmpty()) {
+            System.out.println("No such " + shapeName + "s.");
+        } else {
+            System.out.println("All " + shapeName + "s, which have inside coordinate x("
+                    + lookUpPoint[0] + "," + lookUpPoint[1] + "):");
+            shapeDataIds.forEach(this::printShapeInformation);
+        }
     }
 
     protected List<Integer> getShapeIdsWhichInsideShape(double... lookUpPoint) {

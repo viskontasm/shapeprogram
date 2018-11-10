@@ -13,6 +13,8 @@ public class ShapeTest {
     protected final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     protected final PrintStream originalOut = System.out;
     protected Shape triangle;
+    protected Shape circle;
+    protected Shape donut;
 
     @Before
     public void setUpStreams() {
@@ -20,8 +22,18 @@ public class ShapeTest {
 
         triangle = new Triangle();
         triangle.setShapeName("triangle");
-        double[] shapeData = {0, 0, 0, 5, 5, 0};
-        triangle.addShapeValues(shapeData);
+        double[] triangleData = {0, 0, 0, 5, 5, 0};
+        triangle.addShapeValues(triangleData);
+
+        circle = new Circle();
+        circle.setShapeName("circle");
+        double[] circleData = {0, 0, 5};
+        circle.addShapeValues(circleData);
+
+        donut = new Donut();
+        donut.setShapeName("donut");
+        double[] donutData = {0, 0, 3, 5};
+        donut.addShapeValues(donutData);
     }
 
     @After
