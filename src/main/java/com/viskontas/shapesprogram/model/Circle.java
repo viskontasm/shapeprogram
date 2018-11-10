@@ -1,15 +1,12 @@
 package com.viskontas.shapesprogram.model;
 
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 
 @Entity
-@NoArgsConstructor
 public class Circle extends Shape {
 
-    public Circle(int shapeDataCount) {
-        super(shapeDataCount);
+    public Circle() {
+        super("circle", 3);
     }
 
     @Override

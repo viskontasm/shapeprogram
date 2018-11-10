@@ -18,7 +18,7 @@ public class ShapeTest {
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
 
-        triangle = new Triangle(6);
+        triangle = new Triangle();
         triangle.setShapeName("triangle");
         double[] shapeData = {0, 0, 0, 5, 5, 0};
         triangle.addShapeValues(shapeData);

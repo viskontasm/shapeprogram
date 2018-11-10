@@ -1,8 +1,8 @@
 package com.viskontas.shapesprogram.service.validator.impl;
 
-import com.viskontas.shapesprogram.AvailableShapes;
 import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.model.Triangle;
+import com.viskontas.shapesprogram.service.impl.ShapeValidatorServiceImpl;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
 import org.junit.Before;
 import org.junit.Rule;
@@ -25,7 +25,6 @@ public class ShapeValidatorServiceImplTest {
     @Before
     public void setUp() {
         shapeValidatorService = new ShapeValidatorServiceImpl();
-        AvailableShapes availableShapes = new AvailableShapes();
     }
 
     @Test
@@ -63,7 +62,7 @@ public class ShapeValidatorServiceImplTest {
     @Test
     public void validate_shape_data_bad_count() throws ShapeException {
         exceptionRule.expect(ShapeException.class);
-        exceptionRule.expectMessage("Not correct data values count.");
+        exceptionRule.expectMessage("Not correct data values count ");
         String[] shapeData = {"0", "0", "0", "5", "5"};
         shapeValidatorService.validateShapeData(6, shapeData);
     }
@@ -85,7 +84,7 @@ public class ShapeValidatorServiceImplTest {
     @Test
     public void validate_lookup_coordinates_bad_count() throws ShapeException {
         exceptionRule.expect(ShapeException.class);
-        exceptionRule.expectMessage("Not correct data values count.");
+        exceptionRule.expectMessage("Not correct data values count ");
         String[] shapeData = {"0", "0"};
         shapeValidatorService.validateLookUpCoordinates(3, shapeData);
     }
@@ -104,7 +103,6 @@ public class ShapeValidatorServiceImplTest {
         shapeValidatorService.validateLookUpCoordinates(2, shapeData);
     }
 
-
     @Test
     public void validate_shapes_availability_fail() throws ShapeException {
         exceptionRule.expect(ShapeException.class);
@@ -115,7 +113,7 @@ public class ShapeValidatorServiceImplTest {
     @Test
     public void validate_shapes_availability_ok() throws ShapeException {
         List<Shape> shapes = new ArrayList<>();
-        shapes.add(new Triangle(6));
+        shapes.add(new Triangle());
         shapeValidatorService.validateShapesAvailability(shapes);
     }
 }

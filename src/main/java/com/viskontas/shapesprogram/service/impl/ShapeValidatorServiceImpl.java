@@ -1,4 +1,4 @@
-package com.viskontas.shapesprogram.service.validator.impl;
+package com.viskontas.shapesprogram.service.impl;
 
 import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
@@ -17,7 +17,7 @@ public class ShapeValidatorServiceImpl implements ShapeValidatorService {
     @Override
     public boolean isOkShapeName(String shapeName) {
         return ValidatorUtil.NOT_NULL_STRING.and(ValidatorUtil.NOT_EMPTY_STRING)
-            .and(ValidatorUtil.IS_SHAPE).test(shapeName).isValid();
+            .test(shapeName).isValid();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ShapeValidatorServiceImpl implements ShapeValidatorService {
     @Override
     public void validateShapeData(int valuesCount, String... shapeValues) throws ShapeException {
         String errors = ValidatorUtil.enoughValues(valuesCount).test(shapeValues.length)
-                .getErrorMessageIfInvalid("Not correct data values count.").orElse("");
+                .getErrorMessageIfInvalid("Not correct data values count ").orElse("");
         errors += Arrays.stream(shapeValues)
                 .allMatch(s -> ValidatorUtil.IS_DOUBLE.test(s).isValid()) ? "" : "Not number coordinate exists";
         if (!errors.isEmpty()) {
@@ -42,13 +42,14 @@ public class ShapeValidatorServiceImpl implements ShapeValidatorService {
 
     @Override
     public void validateLookUpCoordinates(int valuesCount, String... shapeValues) throws ShapeException {
-        validateShapeData(valuesCount,shapeValues);
+        validateDouble(shapeValues[0]);
+        validateShapeData(valuesCount, shapeValues);
     }
 
     @Override
     public void validateShapesAvailability(List<Shape> shape) throws ShapeException {
         String error = ValidatorUtil.NOT_EMPTY_LIST.test(shape)
-                .getErrorMessageIfInvalid("No shapes found:").orElse("");
+                .getErrorMessageIfInvalid("No shapes found: ").orElse("");
         if (!error.isEmpty()) {
             throw new ShapeException(error);
         }

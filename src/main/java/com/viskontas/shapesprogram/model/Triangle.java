@@ -1,15 +1,13 @@
 package com.viskontas.shapesprogram.model;
 
-import lombok.NoArgsConstructor;
 import java.util.List;
 import javax.persistence.Entity;
 
 @Entity
-@NoArgsConstructor
 public class Triangle extends Shape {
 
-    public Triangle(int shapeDataCount) {
-        super(shapeDataCount);
+    public Triangle() {
+        super("triangle", 6);
     }
 
     @Override

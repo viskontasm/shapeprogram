@@ -1,20 +1,14 @@
 package com.viskontas.shapesprogram.service.validator.genericvalidator;
 
-import com.viskontas.shapesprogram.AvailableShapes;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Objects;
 
 @Component
 public class ValidatorUtil {
 
-    //
-
     public static final Validation <String> NOT_NULL_STRING = GenericValidation.from(Objects::nonNull);
     public static final Validation <String> NOT_EMPTY_STRING = GenericValidation.from(s -> !s.isEmpty());
-    public static final Validation <String> IS_SHAPE = GenericValidation.from(
-        AvailableShapes::shapeExists);
 
     public static final Validation <String> IS_DOUBLE = GenericValidation.from(
         ValidatorUtil::canParseDouble);

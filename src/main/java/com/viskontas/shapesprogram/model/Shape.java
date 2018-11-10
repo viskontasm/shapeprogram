@@ -24,8 +24,9 @@ public abstract class Shape {
     protected int shapeDataCount;
     protected String shapeName;
 
-    protected Shape(int shapeDataCount) {
+    protected Shape(String shapeName, int shapeDataCount) {
         this.shapeDataCount = shapeDataCount;
+        this.shapeName = shapeName;
         shapeData = new ArrayList<>();
     }
 
