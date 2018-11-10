@@ -12,7 +12,7 @@ public class Donut extends Shape {
     @Override
     public void printShapeInformation(int shapeDataId) {
         double[] rawCoordinates = shapeData.get(shapeDataId);
-        System.out.println("\tdonut-" + shapeDataId + " with centre o1("
+        System.out.print("\tdonut-" + shapeDataId + " with centre o1("
                 + rawCoordinates[0] + "," + rawCoordinates[1] + ") and radiuses "
                 + rawCoordinates[2] + " and " + rawCoordinates[3] + ";");
     }
@@ -26,5 +26,12 @@ public class Donut extends Shape {
         boolean isBiggerCircle = calc <= StrictMath.pow(rawCoord[3], 2);
         return isBiggerCircle && !isSmallerCircle;
     }
+
+    @Override
+    public void setSurfaceArea(int shapeDataId) {
+        double[] rawCoord = extractRawCoordinates(shapeDataId);
+        double smallCircleArea = circleSurfaceArea(rawCoord[2]);
+        double bigCircleArea = circleSurfaceArea(rawCoord[3]);
+        surfaceArea += bigCircleArea - smallCircleArea;
+    }
 }
-//TODO test insideCalculation for all shapes?

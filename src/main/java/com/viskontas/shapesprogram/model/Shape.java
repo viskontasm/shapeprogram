@@ -21,6 +21,7 @@ public abstract class Shape {
     protected long id;
     @ElementCollection
     protected List<double[]> shapeData;
+    protected List<double[]> surfaceArea;
     protected int shapeDataCount;
     protected String shapeName;
 
@@ -31,6 +32,7 @@ public abstract class Shape {
     }
 
     public abstract void printShapeInformation(int shapeDataId);
+    public abstract void setSurfaceArea(int shapeDataId);
     abstract boolean insideCalculation(int shapeDataId, double... lookUpPoint);
 
     public String getShapeName() {
@@ -60,8 +62,15 @@ public abstract class Shape {
         } else {
             System.out.println("All " + shapeName + "s, which have inside coordinate x("
                     + lookUpPoint[0] + "," + lookUpPoint[1] + "):");
-            shapeDataIds.forEach(this::printShapeInformation);
+            shapeDataIds.forEach(id -> {
+                printShapeInformation(id);
+                printShapeArea();
+            });
         }
+    }
+
+    public void printShapeArea() {
+        System.out.println(" Surface area:" + surfaceArea);
     }
 
     protected List<Integer> getShapeIdsWhichInsideShape(double... lookUpPoint) {
@@ -69,5 +78,13 @@ public abstract class Shape {
                 .filter(shapeDataId -> insideCalculation(shapeDataId, lookUpPoint))
                 .mapToObj(Integer::valueOf)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    protected double[] extractRawCoordinates(int shapeDataId) {
+        return shapeData.get(shapeDataId);
+    }
+
+    protected double circleSurfaceArea(double r) {
+        return Math.PI * StrictMath.pow(r, 2);
     }
 }

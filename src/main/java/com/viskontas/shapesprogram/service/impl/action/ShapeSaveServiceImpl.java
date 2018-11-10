@@ -2,7 +2,6 @@ package com.viskontas.shapesprogram.service.impl.action;
 
 import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.repository.ShapeRepository;
-import com.viskontas.shapesprogram.service.ActionResolverService;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,7 @@ public class ShapeSaveServiceImpl extends ShapeService {
                 Shape shape = availableShapes.get(firstItem);
                 validateShapeForSave(shape, items);
                 fillShapeWithData(shape, items);
+                setSurfaceArea(shape);
                 createOrUpdateShape(shape);
                 printSavedShape(shape);
             }
@@ -35,9 +35,14 @@ public class ShapeSaveServiceImpl extends ShapeService {
         }
     }
 
-    private void printSavedShape(Shape shape) throws ShapeException {
+    private void printSavedShape(Shape shape) {
         System.out.println("Shape added:");
         shape.printShapeInformation(shape.getShapeData().size()-1);
+        shape.printShapeArea();
+    }
+
+    private void setSurfaceArea (Shape shape) {
+        shape.setSurfaceArea(shape.getShapeData().size()-1);
     }
 
     private void validateShapeForSave(Shape shape, String... line) throws ShapeException {
