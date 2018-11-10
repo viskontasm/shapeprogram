@@ -57,7 +57,7 @@ public class ShapeValidatorServiceTest {
     @Test
     public void validate_shape_data_bad_count() throws ShapeException {
         exceptionRule.expect(ShapeException.class);
-        exceptionRule.expectMessage("Not correct data values count ");
+        exceptionRule.expectMessage("Not correct data values count");
         String[] shapeData = {"0", "0", "0", "5", "5"};
         shapeValidatorService.validateShapeData(6, shapeData);
     }
@@ -65,7 +65,7 @@ public class ShapeValidatorServiceTest {
     @Test
     public void validate_shape_data_not_double() throws ShapeException {
         exceptionRule.expect(ShapeException.class);
-        exceptionRule.expectMessage("Not number coordinate exists");
+        exceptionRule.expectMessage(" Not number coordinate exists");
         String[] shapeData = {"0", "0", "0", "5", "5", "a"};
         shapeValidatorService.validateShapeData(6, shapeData);
     }
@@ -79,7 +79,7 @@ public class ShapeValidatorServiceTest {
     @Test
     public void validate_lookup_coordinates_bad_count() throws ShapeException {
         exceptionRule.expect(ShapeException.class);
-        exceptionRule.expectMessage("Not correct data values count ");
+        exceptionRule.expectMessage("Not correct data values count");
         String[] shapeData = {"0", "0"};
         shapeValidatorService.validateLookUpCoordinates(3, shapeData);
     }
@@ -87,7 +87,7 @@ public class ShapeValidatorServiceTest {
     @Test
     public void validate_lookup_coordinates_not_double() throws ShapeException {
         exceptionRule.expect(ShapeException.class);
-        exceptionRule.expectMessage("Not number coordinate exists");
+        exceptionRule.expectMessage(" Not number coordinate exists");
         String[] shapeData = {"0", "a"};
         shapeValidatorService.validateLookUpCoordinates(2, shapeData);
     }

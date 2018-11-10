@@ -32,9 +32,10 @@ public class ShapeValidatorServiceImpl implements ShapeValidatorService {
     @Override
     public void validateShapeData(int valuesCount, String... shapeValues) throws ShapeException {
         String errors = ValidatorUtil.enoughValues(valuesCount).test(shapeValues.length)
-                .getErrorMessageIfInvalid("Not correct data values count ").orElse("");
-        errors += Arrays.stream(shapeValues)
-                .allMatch(s -> ValidatorUtil.IS_DOUBLE.test(s).isValid()) ? "" : "Not number coordinate exists";
+                .getErrorMessageIfInvalid("Not correct data values count").orElse("");
+        if (!Arrays.stream(shapeValues).allMatch(s -> ValidatorUtil.IS_DOUBLE.test(s).isValid())) {
+             errors += " Not number coordinate exists";
+        }
         if (!errors.isEmpty()) {
             throw new ShapeException(errors+": ");
         }

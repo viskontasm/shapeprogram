@@ -19,7 +19,7 @@ public class TriangleTest extends ShapeTest {
         double[] lookUpPoint = {1, 2};
         triangle.printInsideShapes(lookUpPoint);
         String expectedString = "All triangles, which have inside coordinate x(1.0,2.0):\r\n" +
-                "triangle-0 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(5.0,0.0);";
+                "\ttriangle-0 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(5.0,0.0);";
         assertEquals(expectedString, outContent.toString().trim());
     }
 

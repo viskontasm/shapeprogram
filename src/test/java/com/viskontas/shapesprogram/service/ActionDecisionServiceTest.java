@@ -5,7 +5,6 @@ import com.viskontas.shapesprogram.service.impl.action.ShapeSaveServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ShapeFindServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.HelpServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ExitServiceImpl;
-import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
 import com.viskontas.shapesprogram.service.impl.ShapeValidatorServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +19,7 @@ import static org.mockito.Mockito.*;
 public class ActionDecisionServiceTest {
 
     private ActionDecisionService actionDecisionService;
-    @Mock
-    private ShapesResolverService shapesResolverService;
+
     @Mock
     private ShapeSaveServiceImpl shapeSaveService;
     @Mock
@@ -33,7 +31,6 @@ public class ActionDecisionServiceTest {
     @Mock
     ShapeValidatorService shapeValidatorService;
 
-
     @Before
     public void setUp() {
         ShapeValidatorServiceImpl shapeValidator = new ShapeValidatorServiceImpl();
@@ -42,7 +39,7 @@ public class ActionDecisionServiceTest {
     }
 
     @Test
-    public void decicion_to_save_triangle() throws ShapeException {
+    public void decicion_to_save_triangle()  {
         String line = "triangle 0 0 0 5 5 0";
         List <String> lineList = new ArrayList<>();
         lineList.add(line);
@@ -52,7 +49,7 @@ public class ActionDecisionServiceTest {
     }
 
     @Test
-    public void decicion_to_save_circle() throws ShapeException {
+    public void decicion_to_save_circle() {
         String line = "circle 0 0 5";
         List <String> lineList = new ArrayList<>();
         lineList.add(line);
@@ -62,12 +59,12 @@ public class ActionDecisionServiceTest {
     }
 
     @Test
-    public void decicion_to_save_donut() throws ShapeException {
+    public void decicion_to_save_donut()  {
         //TODO
     }
 
     @Test
-    public void decicion_find_inside_shapes() throws ShapeException {
+    public void decicion_find_inside_shapes() {
         String line = "1 2";
         List <String> lineList = new ArrayList<>();
         lineList.add(line);
@@ -77,7 +74,7 @@ public class ActionDecisionServiceTest {
     }
 
     @Test
-    public void decicion_to_find_shapes() throws ShapeException {
+    public void decicion_to_find_shapes()  {
         String line = "1 2";
         List <String> lineList = new ArrayList<>();
         lineList.add(line);

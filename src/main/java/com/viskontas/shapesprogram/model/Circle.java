@@ -12,7 +12,7 @@ public class Circle extends Shape {
     @Override
     public void printShapeInformation(int shapeDataId) {
         double[] rawCoordinates = shapeData.get(shapeDataId);
-        System.out.println("circle-" + shapeDataId + " with centre o1("
+        System.out.println("\tcircle-" + shapeDataId + " with centre o1("
             + rawCoordinates[0] + "," + rawCoordinates[1] + ") and radius "
             + rawCoordinates[2] + ";");
     }

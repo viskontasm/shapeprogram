@@ -13,7 +13,7 @@ public class Triangle extends Shape {
     @Override
     public void printShapeInformation(int shapeDataId) {
         double[] rawCoordinates = shapeData.get(shapeDataId);
-        System.out.println("triangle-" + shapeDataId + " with coordinates x1("
+        System.out.println("\ttriangle-" + shapeDataId + " with coordinates x1("
             + rawCoordinates[0] + "," + rawCoordinates[1] + "), x2("
             + rawCoordinates[2] + "," + rawCoordinates[3] + "), x3("
             + rawCoordinates[4] + "," + rawCoordinates[5] + ");");
