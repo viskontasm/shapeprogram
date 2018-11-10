@@ -1,4 +1,4 @@
-package com.viskontas.shapesprogram.service.validator.impl;
+package com.viskontas.shapesprogram.service;
 
 import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.model.Triangle;
@@ -16,9 +16,9 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ShapeValidatorServiceImplTest {
+public class ShapeValidatorServiceTest {
 
-    private ShapeValidatorServiceImpl shapeValidatorService;
+    private ShapeValidatorService shapeValidatorService;
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
 
@@ -28,22 +28,17 @@ public class ShapeValidatorServiceImplTest {
     }
 
     @Test
-    public void validate_null_shape_name() {
+    public void validate_null_shape_name() throws ShapeException {
         assertFalse(shapeValidatorService.isOkShapeName(null));
     }
 
     @Test
-    public void validate_empty_shape_name() {
+    public void validate_empty_shape_name() throws ShapeException {
         assertFalse(shapeValidatorService.isOkShapeName(""));
     }
 
     @Test
-    public void validate_not_shape_name() {
-        assertFalse(shapeValidatorService.isOkShapeName("unavailableShape"));
-    }
-
-    @Test
-    public void validate_ok_shape_name() {
+    public void validate_ok_shape_name() throws ShapeException {
         assertTrue(shapeValidatorService.isOkShapeName("circle"));
     }
 

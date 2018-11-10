@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class ExitServiceImpl implements ActionResolverService {
 
     @Override
-    public void doCommand() {
+    public void doCommand(String... items) {
         System.exit(0);
     }
 }

@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @NoArgsConstructor
-public class HelperServiceImpl implements ActionResolverService {
+public class HelpServiceImpl implements ActionResolverService {
 
     @Override
-    public void doCommand() {
+    public void doCommand(String... items) {
         System.out.println("help text");
     }
 }
