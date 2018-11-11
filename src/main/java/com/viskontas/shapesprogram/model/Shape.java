@@ -49,4 +49,8 @@ public abstract class Shape {
     public void setShapeName(String shapeName) {
         this.shapeName = shapeName;
     }
+
+    public void setShapeData(List<double[]> shapeData) {
+        this.shapeData = shapeData;
+    }
 }

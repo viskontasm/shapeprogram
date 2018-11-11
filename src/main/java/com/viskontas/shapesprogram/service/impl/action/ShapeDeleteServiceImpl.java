@@ -1,6 +1,7 @@
 package com.viskontas.shapesprogram.service.impl.action;
 
 import com.viskontas.shapesprogram.repository.ShapeRepository;
+import com.viskontas.shapesprogram.service.ActionDecisionService;
 import com.viskontas.shapesprogram.service.PrintingService;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class ShapeDeleteServiceImpl extends ShapeService {
     }
 
     @Override
-    public void doCommand(String... items) {
+    public void doCommand(ActionDecisionService actionDecisionService, String... items) {
 
     }
 }

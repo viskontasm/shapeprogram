@@ -2,6 +2,7 @@ package com.viskontas.shapesprogram.service.impl.action;
 
 import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.repository.ShapeRepository;
+import com.viskontas.shapesprogram.service.ActionDecisionService;
 import com.viskontas.shapesprogram.service.PrintingService;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
@@ -23,7 +24,7 @@ public class ShapeSaveServiceImpl extends ShapeService {
     }
 
     @Override
-    public void doCommand(String... items) {
+    public void doCommand(ActionDecisionService actionDecisionService, String... items) {
         try {
             String firstItem = items[0];
             if (availableShapes.keySet().contains(firstItem) && shapeValidatorService.isOkShapeName(firstItem)) {
@@ -58,26 +59,6 @@ public class ShapeSaveServiceImpl extends ShapeService {
     }
 
     private Shape createOrUpdateShape(Shape newShape) {
-        /*Optional<Shape> existingShapeOptional = getExistingShapeOptional(newShape.getShapeName());
-        if (existingShapeOptional.isPresent()) {
-            Shape existingShape = existingShapeOptional.get();
-            return shapeRepository.save(prepareExistingShape(existingShape, newShape));
-        } else {*/
-            return shapeRepository.save(newShape);
-        //}
-    }
-
-    private Optional<Shape> getExistingShapeOptional(String shapeName) {
-        //TODO findAll
-        List<Shape> shapes = shapeRepository.findAll();
-        return shapes.stream()
-                .filter(sh -> shapeName.equals(sh.getShapeName()))
-                .findFirst();
-    }
-
-    private Shape prepareExistingShape(Shape existingShape, Shape newShape) {
-        int lastIndex = newShape.getShapeData().size()-1;
-        existingShape.addShapeValues(newShape.getShapeData().get(lastIndex));
-        return existingShape;
+        return shapeRepository.save(newShape);
     }
 }

@@ -1,5 +1,6 @@
 package com.viskontas.shapesprogram.service.impl.action;
 
+import com.viskontas.shapesprogram.service.ActionDecisionService;
 import com.viskontas.shapesprogram.service.ActionResolverService;
 import com.viskontas.shapesprogram.usecase.ShapeUsecase;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class HelpServiceImpl implements ActionResolverService {
 
     @Override
-    public void doCommand(String... items) {
+    public void doCommand(ActionDecisionService actionDecisionService, String... items) {
         System.out.println("help text");
     }
 

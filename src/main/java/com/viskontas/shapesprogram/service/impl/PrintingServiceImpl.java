@@ -1,5 +1,6 @@
 package com.viskontas.shapesprogram.service.impl;
 
+import com.viskontas.shapesprogram.service.impl.action.ShapeFindServiceImpl;
 import com.viskontas.shapesprogram.usecase.ShapeUsecase;
 import com.viskontas.shapesprogram.service.PrintingService;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import java.util.List;
 public class PrintingServiceImpl implements PrintingService {
 
     @Override
-    public void printInsideShapes(ShapeUsecase shapeUsecase, Double totalArea, double... lookUpPoint) {
+    public void printInsideShapes(ShapeFindServiceImpl shapeFindService, ShapeUsecase shapeUsecase, double... lookUpPoint) {
         List<Integer> shapeDataIds = shapeUsecase.getShapeIdsWhichInsideShape(lookUpPoint);
         if (shapeDataIds.isEmpty()) {
             System.out.println("No such " + shapeUsecase.getShape().getShapeName() + "s.");
@@ -20,9 +21,8 @@ public class PrintingServiceImpl implements PrintingService {
             for (int id : shapeDataIds) {
                 printShapeInformation(shapeUsecase, id);
                 printShapeArea(shapeUsecase, id);
-                totalArea += shapeUsecase.getSurfaceArea(id);
+                shapeFindService.setTotalArea(shapeFindService.getTotalArea()+shapeUsecase.getSurfaceArea(id));
             }
-            //System.out.println("Total area: " + totalArea);
         }
     }
 
@@ -38,6 +38,8 @@ public class PrintingServiceImpl implements PrintingService {
 
     @Override
     public void printTotalArea(double totalArea) {
-        System.out.println("Total area:" + totalArea);
+        if (totalArea > 0) {
+            System.out.println("Total area:" + totalArea);
+        }
     }
 }

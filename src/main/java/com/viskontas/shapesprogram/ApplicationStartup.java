@@ -1,6 +1,7 @@
 package com.viskontas.shapesprogram;
 
 import com.viskontas.shapesprogram.service.ActionDecisionService;
+import com.viskontas.shapesprogram.service.impl.action.FileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 @Component
@@ -24,31 +26,20 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        /*while(true) {
-            System.out.println("Enter model(type 'help' for more information)");
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
+        //while(true) {
+        //    System.out.println("Enter command(type 'help' for more information)");
+        //    acceptCommand();
+        //}
 
-            if (input.equals("exit")) {
-                break;
-            }
-            if (input.equals("help")) {
-                System.out.println("help!");0
-            } else {
-                System.out.println("Result: " + firstInputValidation(input));
-            }
-        }*/
-        readFromFile();
+        FileServiceImpl fileService = new FileServiceImpl();
+        fileService.readFromFile(actionDecisionService);
     }
 
-    private void readFromFile() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("sample-data.txt").getFile());
-        try (Stream<String> lineStream = Files.lines(Paths.get(file.getPath()))) {
-            actionDecisionService.decide(lineStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void acceptCommand() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        actionDecisionService.decide(input);
     }
+
 //TODO write tests
 }
