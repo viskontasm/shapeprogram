@@ -50,5 +50,5 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
             e.printStackTrace();
         }
     }
-//TODO wirte tests
+//TODO write tests
 }

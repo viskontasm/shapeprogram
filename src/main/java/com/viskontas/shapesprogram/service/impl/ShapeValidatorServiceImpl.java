@@ -6,7 +6,6 @@ import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
 import com.viskontas.shapesprogram.service.validator.genericvalidator.ValidatorUtil;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
 import java.util.List;
 

@@ -2,8 +2,7 @@ package com.viskontas.shapesprogram.service.validator.genericvalidator;
 
 import java.util.function.Predicate;
 
-
-public class GenericValidation <K> implements Validation<K> {
+public final class GenericValidation <K> implements Validation<K> {
     private final Predicate <K> predicate;
 
     public static <K> GenericValidation <K> from(Predicate <K> predicate) {

@@ -2,11 +2,14 @@ package com.viskontas.shapesprogram.service.impl.action;
 
 import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.repository.ShapeRepository;
+import com.viskontas.shapesprogram.service.PrintingService;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
+import com.viskontas.shapesprogram.usecase.ShapeUsecase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,8 +17,9 @@ public class ShapeSaveServiceImpl extends ShapeService {
 
     @Autowired
     public ShapeSaveServiceImpl(ShapeValidatorService shapeValidatorService,
-                                ShapeRepository shapeRepository) {
-        super(shapeValidatorService, shapeRepository);
+                                ShapeRepository shapeRepository,
+                                PrintingService printingService) {
+        super(shapeValidatorService, shapeRepository, printingService);
     }
 
     @Override
@@ -23,22 +27,22 @@ public class ShapeSaveServiceImpl extends ShapeService {
         try {
             String firstItem = items[0];
             if (availableShapes.keySet().contains(firstItem) && shapeValidatorService.isOkShapeName(firstItem)) {
-                Shape shape = availableShapes.get(firstItem);
-                validateShapeForSave(shape, items);
-                fillShapeWithData(shape, items);
-                createOrUpdateShape(shape);
-                printSavedShape(shape);
+                ShapeUsecase shapeUsecase = availableShapes.get(firstItem);
+                validateShapeForSave(shapeUsecase.getShape(), items);
+                fillShapeWithData(shapeUsecase.getShape(), items);
+                createOrUpdateShape(shapeUsecase.getShape());
+                printSavedShape(shapeUsecase);
             }
         } catch (ShapeException e) {
             System.out.println("ERROR: " + e.getMessage() + Arrays.toString(items));
         }
     }
 
-    private void printSavedShape(Shape shape) {
-        int shapeId = shape.getShapeData().size()-1;
+    private void printSavedShape(ShapeUsecase shapeUsecase) {
+        int shapeId = shapeUsecase.getShape().getShapeData().size()-1;
         System.out.println("Shape added:");
-        shape.printShapeInformation(shapeId);
-        shape.printShapeArea(shapeId);
+        printingService.printShapeInformation(shapeUsecase, shapeId);
+        printingService.printShapeArea(shapeUsecase, shapeId);
     }
 
     private void validateShapeForSave(Shape shape, String... line) throws ShapeException {
@@ -54,17 +58,19 @@ public class ShapeSaveServiceImpl extends ShapeService {
     }
 
     private Shape createOrUpdateShape(Shape newShape) {
-        Optional<Shape> existingShapeOptional = getExistingShapeOptional(newShape.getShapeName());
+        /*Optional<Shape> existingShapeOptional = getExistingShapeOptional(newShape.getShapeName());
         if (existingShapeOptional.isPresent()) {
             Shape existingShape = existingShapeOptional.get();
             return shapeRepository.save(prepareExistingShape(existingShape, newShape));
-        } else {
+        } else {*/
             return shapeRepository.save(newShape);
-        }
+        //}
     }
 
     private Optional<Shape> getExistingShapeOptional(String shapeName) {
-        return shapeRepository.findAll().stream()
+        //TODO findAll
+        List<Shape> shapes = shapeRepository.findAll();
+        return shapes.stream()
                 .filter(sh -> shapeName.equals(sh.getShapeName()))
                 .findFirst();
     }

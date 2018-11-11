@@ -3,7 +3,7 @@ package com.viskontas.shapesprogram.service.validator.genericvalidator;
 import java.util.Optional;
 
 public class GenericValidationResult {
-    private boolean valid;
+    private final boolean valid;
     public boolean isValid() {
         return valid;
     }

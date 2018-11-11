@@ -2,8 +2,10 @@ package com.viskontas.shapesprogram;
 
 import com.viskontas.shapesprogram.repository.ShapeRepository;
 import com.viskontas.shapesprogram.service.ActionDecisionService;
+import com.viskontas.shapesprogram.service.PrintingService;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.impl.ActionDecisionServiceImpl;
+import com.viskontas.shapesprogram.service.impl.PrintingServiceImpl;
 import com.viskontas.shapesprogram.service.impl.ShapeValidatorServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ExitServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.HelpServiceImpl;
@@ -15,6 +17,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +28,6 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 import static org.junit.Assert.assertEquals;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class MasterTest {
 
@@ -32,7 +35,7 @@ public class MasterTest {
     private final PrintStream originalOut = System.out;
 
     private ActionDecisionService actionDecisionService;
-    @Mock
+    @Resource
     private ShapeRepository shapeRepository;
 
     @Before
@@ -40,8 +43,11 @@ public class MasterTest {
         System.setOut(new PrintStream(outContent));
 
         ShapeValidatorService shapeValidatorService = new ShapeValidatorServiceImpl();
-        ShapeSaveServiceImpl shapeSaveService = new ShapeSaveServiceImpl(shapeValidatorService, shapeRepository);
-        ShapeFindServiceImpl shapeFindService = new ShapeFindServiceImpl(shapeValidatorService, shapeRepository);
+        PrintingService printingService = new PrintingServiceImpl();
+        ShapeSaveServiceImpl shapeSaveService = new ShapeSaveServiceImpl(
+                shapeValidatorService, shapeRepository, printingService);
+        ShapeFindServiceImpl shapeFindService = new ShapeFindServiceImpl(
+                shapeValidatorService, shapeRepository, printingService);
         HelpServiceImpl helperService = new HelpServiceImpl();
         ExitServiceImpl exitServiceImpl = new ExitServiceImpl();
 
@@ -67,22 +73,22 @@ public class MasterTest {
         String expectedString = "ERROR: No shapes found: [1, 2]\r\n" +
                 "help text\r\n" +
                 "Shape added:\r\n" +
-                "\ttriangle-0 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(5.0,0.0);\r\n" +
+                "\ttriangle-0 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(5.0,0.0); Surface area:12.5\r\n" +
                 "ERROR: Not correct data values count: [triangle, 0, 0, 0, 5, -2, 0, 0]\r\n" +
                 "Shape added:\r\n" +
-                "\ttriangle-1 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(-2.0,0.0);\r\n" +
+                "\ttriangle-1 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(-2.0,0.0); Surface area:5.0\r\n" +
                 "ERROR: First value is not shape and not coordinate: [nera, 1, 1, 1, 1]\r\n" +
                 "Shape added:\r\n" +
-                "\ttriangle-2 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(4.0,0.0);\r\n" +
+                "\ttriangle-2 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(4.0,0.0); Surface area:10.0\r\n" +
                 "ERROR: Not correct data values count: [circle, 0, 0]\r\n" +
                 "Shape added:\r\n" +
-                "\tcircle-0 with centre o1(0.0,0.0) and radius 5.0;\r\n" +
+                "\tcircle-0 with centre o1(0.0,0.0) and radius 5.0; Surface area:78.53981633974483\r\n" +
                 "Shape added:\r\n" +
-                "\tcircle-1 with centre o1(0.0,0.0) and radius 3.0;\r\n" +
+                "\tcircle-1 with centre o1(0.0,0.0) and radius 3.0; Surface area:28.274333882308138\r\n" +
                 "Shape added:\r\n" +
-                "\ttriangle-3 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(4.0,0.0);\r\n" +
+                "\ttriangle-3 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(4.0,0.0); Surface area:10.0\r\n" +
                 "Shape added:\r\n" +
-                "\tdonut-0 with centre o1(0.0,0.0) and radiuses 3.0 and 5.0;\r\n" +
+                "\tdonut-0 with centre o1(0.0,0.0) and radiuses 3.0 and 5.0; Surface area:50.26548245743669\r\n" +
                 "ERROR: No shapes found: [1, 2]\r\n" +
                 "ERROR: No shapes found: [0, 3]\r\n" +
                 "ERROR: No shapes found: [0, 5]\r\n" +
