@@ -39,7 +39,7 @@ public class PrintingServiceImpl implements PrintingService {
     @Override
     public void printTotalArea(double totalArea) {
         if (totalArea > 0) {
-            System.out.println("Total area:" + totalArea);
+            System.out.println("\tTotal area:" + totalArea);
         }
     }
 }

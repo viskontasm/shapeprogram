@@ -27,7 +27,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         //while(true) {
-        //    System.out.println("Enter command(type 'help' for more information)");
+        //    System.out.print("Enter command(type 'help' for more information): ");
         //    acceptCommand();
         //}
 

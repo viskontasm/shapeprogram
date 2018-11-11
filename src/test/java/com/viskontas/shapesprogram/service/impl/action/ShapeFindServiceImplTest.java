@@ -46,7 +46,7 @@ public class ShapeFindServiceImplTest extends ActionResolverServiceTest {
 
         String expectedString = "All triangles, which have inside coordinate x(1.0,2.0):\r\n" +
                 "\ttriangle-0 with coordinates x1(0.0,0.0), x2(0.0,5.0), x3(5.0,0.0); Surface area:12.5\r\n" +
-                "Total area:12.5";
+                "\tTotal area:12.5";
         assertEquals(expectedString, outContent.toString().trim());
     }
 
@@ -68,7 +68,7 @@ public class ShapeFindServiceImplTest extends ActionResolverServiceTest {
 
         String expectedString = "All circles, which have inside coordinate x(1.0,2.0):\r\n" +
                 "\tcircle-0 with centre o1(0.0,0.0) and radius 5.0; Surface area:78.53981633974483\r\n" +
-                "Total area:78.53981633974483";
+                "\tTotal area:78.53981633974483";
         assertEquals(expectedString, outContent.toString().trim());
     }
 
@@ -90,7 +90,7 @@ public class ShapeFindServiceImplTest extends ActionResolverServiceTest {
 
         String expectedString = "All donuts, which have inside coordinate x(0.0,4.0):\r\n" +
                 "\tdonut-0 with centre o1(0.0,0.0) and radiuses 3.0 and 5.0; Surface area:50.26548245743669\r\n" +
-                "Total area:50.26548245743669";
+                "\tTotal area:50.26548245743669";
         assertEquals(expectedString, outContent.toString().trim());
     }
 }

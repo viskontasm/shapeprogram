@@ -4,12 +4,12 @@ import com.viskontas.shapesprogram.service.ActionDecisionService;
 import com.viskontas.shapesprogram.service.ActionResolverService;
 import com.viskontas.shapesprogram.usecase.ShapeUsecase;
 import org.springframework.stereotype.Service;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 @Service
 public class FileServiceImpl implements ActionResolverService {
@@ -20,13 +20,10 @@ public class FileServiceImpl implements ActionResolverService {
     }
 
     public void readFromFile(ActionDecisionService actionDecisionService) {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("sample-data.txt").getFile());
-        try (Stream<String> lineStream = Files.lines(Paths.get(file.getPath()))) {
-            lineStream.forEach(actionDecisionService::decide);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        InputStream in = getClass().getResourceAsStream("/sample-data.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        List<String> list = reader.lines().collect(Collectors.toList());
+        list.forEach(actionDecisionService::decide);
     }
 
     @Override
