@@ -13,8 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import java.util.ArrayList;
-import java.util.List;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -47,8 +45,6 @@ public class ActionDecisionServiceTest {
     @Test
     public void decicion_to_save_triangle()  {
         String line = "triangle 0 0 0 5 5 0";
-        List <String> lineList = new ArrayList<>();
-        lineList.add(line);
         actionDecisionService.decide(line);
         verify(shapeSaveService, times(1))
                 .doCommand(actionDecisionService, line.split(" "));
@@ -57,8 +53,6 @@ public class ActionDecisionServiceTest {
     @Test
     public void decicion_to_save_circle() {
         String line = "circle 0 0 5";
-        List <String> lineList = new ArrayList<>();
-        lineList.add(line);
         actionDecisionService.decide(line);
         verify(shapeSaveService, times(1))
                 .doCommand(actionDecisionService, line.split(" "));
@@ -67,8 +61,6 @@ public class ActionDecisionServiceTest {
     @Test
     public void decicion_to_save_donut()  {
         String line = "donut 0 0 3 5";
-        List <String> lineList = new ArrayList<>();
-        lineList.add(line);
         actionDecisionService.decide(line);
         verify(shapeSaveService, times(1))
                 .doCommand(actionDecisionService, line.split(" "));
@@ -77,8 +69,6 @@ public class ActionDecisionServiceTest {
     @Test
     public void decicion_find_inside_shapes() {
         String line = "1 2";
-        List <String> lineList = new ArrayList<>();
-        lineList.add(line); //TODO
         actionDecisionService.decide(line);
         verify(shapeFindService, times(1))
                 .doCommand(actionDecisionService, line.split(" "));
@@ -87,8 +77,6 @@ public class ActionDecisionServiceTest {
     @Test
     public void decicion_to_find_shapes()  {
         String line = "1 2";
-        List <String> lineList = new ArrayList<>();
-        lineList.add(line);
         actionDecisionService.decide(line);
         verify(shapeFindService, times(1))
                 .doCommand(actionDecisionService, line.split(" "));
@@ -97,8 +85,6 @@ public class ActionDecisionServiceTest {
     @Test
     public void decicion_to_ask_help() {
         String line = "help";
-        List <String> lineList = new ArrayList<>();
-        lineList.add(line);
         actionDecisionService.decide(line);
         verify(helperService, times(1)).doCommand(actionDecisionService, line);
     }
@@ -106,8 +92,6 @@ public class ActionDecisionServiceTest {
     @Test
     public void decicion_to_exit() {
         String line = "exit";
-        List <String> lineList = new ArrayList<>();
-        lineList.add(line);
         actionDecisionService.decide(line);
         verify(exitServiceImpl, times(1)).doCommand(actionDecisionService, line);
     }

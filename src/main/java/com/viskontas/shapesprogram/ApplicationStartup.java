@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 @Component
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
 
-    ActionDecisionService actionDecisionService;
+    private final ActionDecisionService actionDecisionService;
 
     @Autowired
     public ApplicationStartup(ActionDecisionService actionDecisionService) {
@@ -26,14 +26,14 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        //while(true) {
-        //    System.out.print("Enter command(type 'help' for more information): ");
-        //    acceptCommand();
-        //}
+        while(true) {
+            System.out.print("Enter command(type 'help' for more information): ");
+            acceptCommand();
+        }
 
         //comment above method code and uncoment below to read directly from file
-        FileServiceImpl fileService = new FileServiceImpl();
-        fileService.readFromFile(actionDecisionService);
+        //FileServiceImpl fileService = new FileServiceImpl();
+        //fileService.doCommand(actionDecisionService,"sample-data.txt");
     }
 
     private void acceptCommand() {
@@ -41,6 +41,4 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         String input = scanner.nextLine();
         actionDecisionService.decide(input);
     }
-
-//TODO write tests
 }

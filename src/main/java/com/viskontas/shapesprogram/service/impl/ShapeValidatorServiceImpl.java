@@ -3,11 +3,13 @@ package com.viskontas.shapesprogram.service.impl;
 import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
+import com.viskontas.shapesprogram.service.validator.exception.ShapeInfoException;
 import com.viskontas.shapesprogram.service.validator.genericvalidator.ValidatorUtil;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @NoArgsConstructor
@@ -48,15 +50,15 @@ public class ShapeValidatorServiceImpl implements ShapeValidatorService {
 
     @Override
     public void validateShapesAvailability(List<Shape> shape) throws ShapeException {
-        String error = ValidatorUtil.NOT_EMPTY_LIST.test(shape)
+        String info = ValidatorUtil.NOT_EMPTY_LIST.test(shape)
                 .getErrorMessageIfInvalid("No shapes found: ").orElse("");
-        if (!error.isEmpty()) {
-            throw new ShapeException(error);
+        if (!info.isEmpty()) {
+            throw new ShapeInfoException(info);
         }
     }
 
     @Override
-    public void validateDeteCommand(List<String> availableShapes, String... values) throws ShapeException {
+    public void validateDeteCommand(Set<String> availableShapes, String... values) throws ShapeException {
         boolean hasTwoStrings = ValidatorUtil.enoughValues(2).test(values.length).isValid();
         boolean correctShapeId = false;
         if (hasTwoStrings) {

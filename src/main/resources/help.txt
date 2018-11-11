@@ -1,0 +1,16 @@
+
+================================SHAPES PROGRAM===========================================================
+
+ Available shapes to add:
+	'circle x y r' - where 'x' and 'y' center coordinates and 'r' radius
+	'donut x y r R' - where 'x' and 'y' center coordinates, 'r' smaller radius and 'R' bigger radius
+	'triangle x1 y1 x2 y2 x3 y3' - where 3 coordinates '(x1, y1)', '(x2, y2)' and '(x3, y3)'
+
+ When a pair of numbers entered 'x y', the application should print out all the shapes that include
+ that point, i.e. it should print out shape S if the given point is inside S(line included).
+
+ Other commands available:
+	'exit' - exit program,
+	'help' - ask for help
+	'file' - read from file located in resources 'sample-data.txt'
+==========================================================================================================

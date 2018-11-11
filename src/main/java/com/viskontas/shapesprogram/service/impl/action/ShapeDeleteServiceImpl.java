@@ -6,11 +6,13 @@ import com.viskontas.shapesprogram.service.ActionDecisionService;
 import com.viskontas.shapesprogram.service.PrintingService;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
+import com.viskontas.shapesprogram.service.validator.exception.ShapeInfoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,13 +28,15 @@ public class ShapeDeleteServiceImpl extends ShapeService {
     @Override
     public void doCommand(ActionDecisionService actionDecisionService, String... items) {
         try {
-            delete(extractAvailableShapes(actionDecisionService), items);
+            delete(availableShapes.keySet(), items);
+        } catch (ShapeInfoException e) {
+            System.out.println(e.getMessage() + Arrays.toString(items));
         } catch (ShapeException e) {
             System.out.println("ERROR: " + e.getMessage() + Arrays.toString(items));
         }
     }
 
-    private void delete(List<String> availableShapes, String... items) throws ShapeException {
+    private void delete(Set<String> availableShapes, String... items) throws ShapeException {
         String[] shapeIdInfo = items[1].split("-");
         shapeValidatorService.validateDeteCommand(availableShapes, items);
         Shape shape = collectShape(shapeIdInfo[0], items);
@@ -60,12 +64,5 @@ public class ShapeDeleteServiceImpl extends ShapeService {
         }
         double[] shapeDataToDelete = shape.getShapeData().get(shapeId);
         shape.getShapeData().remove(shapeDataToDelete);
-    }
-
-    private List<String> extractAvailableShapes(ActionDecisionService actionDecisionService) {
-        return actionDecisionService.getAvailableCommands().entrySet().stream()
-                .filter(x -> x.getValue() instanceof ShapeSaveServiceImpl)
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
     }
 }

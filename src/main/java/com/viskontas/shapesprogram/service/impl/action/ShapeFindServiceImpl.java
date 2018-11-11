@@ -6,6 +6,7 @@ import com.viskontas.shapesprogram.service.ActionDecisionService;
 import com.viskontas.shapesprogram.service.PrintingService;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
+import com.viskontas.shapesprogram.service.validator.exception.ShapeInfoException;
 import com.viskontas.shapesprogram.usecase.ShapeUsecase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,8 @@ public class ShapeFindServiceImpl extends ShapeService {
         try {
             shapeValidatorService.validateLookUpCoordinates(2, items);
             find(items);
+        } catch (ShapeInfoException e) {
+            System.out.println(e.getMessage() + Arrays.toString(items));
         } catch (ShapeException e) {
             System.out.println("ERROR: " + e.getMessage() + Arrays.toString(items));
         }

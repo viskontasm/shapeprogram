@@ -3,6 +3,7 @@ package com.viskontas.shapesprogram.service.validator.genericvalidator;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Component
 public class ValidatorUtil {
@@ -19,11 +20,11 @@ public class ValidatorUtil {
     public static final Validation <List<?>> NOT_EMPTY_LIST = GenericValidation.from(list -> !list.isEmpty());
 
     public static Validation<Integer> enoughValues(int size){
-        return GenericValidation.from(s -> s == size);
+        return GenericValidation.from(enough -> enough == size);
     }
 
-    public static Validation<List<String>> availableShape(String shapeName){
-        return GenericValidation.from(str -> str.contains(shapeName));
+    public static Validation<Set<String>> availableShape(String shapeName){
+        return GenericValidation.from(available -> available.contains(shapeName));
     }
 
     private static boolean canParseDouble(String input){

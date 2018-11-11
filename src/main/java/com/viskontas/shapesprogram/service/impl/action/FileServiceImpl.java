@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,14 +17,17 @@ public class FileServiceImpl implements ActionResolverService {
 
     @Override
     public void doCommand(ActionDecisionService actionDecisionService, String... items) {
-       readFromFile(actionDecisionService);
+       decide(actionDecisionService, readFromFile("sample-data.txt"));
     }
 
-    public void readFromFile(ActionDecisionService actionDecisionService) {
-        InputStream in = getClass().getResourceAsStream("/sample-data.txt");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        List<String> list = reader.lines().collect(Collectors.toList());
-        list.forEach(actionDecisionService::decide);
+    public List<String> readFromFile(String fileName) {
+        InputStream in = getClass().getResourceAsStream("/"+fileName);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+        return reader.lines().collect(Collectors.toList());
+    }
+
+    private void decide(ActionDecisionService actionDecisionService, List<String> lines){
+        lines.forEach(actionDecisionService::decide);
     }
 
     @Override
