@@ -8,8 +8,6 @@ import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;

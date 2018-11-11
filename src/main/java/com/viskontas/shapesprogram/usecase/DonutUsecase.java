@@ -33,5 +33,4 @@ public class DonutUsecase extends ShapeUsecase {
         double bigCircleArea = calculateCircleSurfaceArea(rawCoord[3]);
         return bigCircleArea - smallCircleArea;
     }
-
 }

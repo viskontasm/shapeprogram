@@ -6,6 +6,8 @@ import com.viskontas.shapesprogram.model.Shape;
 import com.viskontas.shapesprogram.model.Triangle;
 import com.viskontas.shapesprogram.service.ActionResolverServiceTest;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +15,12 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ShapeFindServiceImplTest extends ActionResolverServiceTest {
 
     @Test
     public void do_command_find_shape_fail() {
-        List<Shape> oneShapeFound = new ArrayList<>();
-
-        when(shapeRepository.findAll()).thenReturn(oneShapeFound);
+        when(shapeRepository.findAll()).thenReturn(noShapesFound);
 
         String line = "1 2";
         findShape.doCommand(null, line.split(" "));
@@ -30,16 +31,7 @@ public class ShapeFindServiceImplTest extends ActionResolverServiceTest {
 
     @Test
     public void do_command_find_triangle() {
-        Shape shape = new Triangle();
-        shape.setShapeName("triangle");
-        double[] shapeD = {0, 0, 0, 5, 5, 0};
-        List<double[]> shapeData = new ArrayList<>();
-        shapeData.add(shapeD);
-        shape.setShapeData(shapeData);
-        List<Shape> oneShapeFound = new ArrayList<>();
-        oneShapeFound.add(shape);
-
-        when(shapeRepository.findAll()).thenReturn(oneShapeFound);
+        when(shapeRepository.findAll()).thenReturn(oneTriangleFound);
 
         String line = "1 2";
         findShape.doCommand(null, line.split(" "));
@@ -52,16 +44,7 @@ public class ShapeFindServiceImplTest extends ActionResolverServiceTest {
 
     @Test
     public void do_command_find_circle() {
-        Shape shape = new Circle();
-        shape.setShapeName("circle");
-        double[] shapeD = {0, 0, 5};
-        List<double[]> shapeData = new ArrayList<>();
-        shapeData.add(shapeD);
-        shape.setShapeData(shapeData);
-        List<Shape> oneShapeFound = new ArrayList<>();
-        oneShapeFound.add(shape);
-
-        when(shapeRepository.findAll()).thenReturn(oneShapeFound);
+        when(shapeRepository.findAll()).thenReturn(oneCircleFound);
 
         String line = "1 2";
         findShape.doCommand(null, line.split(" "));
@@ -74,16 +57,7 @@ public class ShapeFindServiceImplTest extends ActionResolverServiceTest {
 
     @Test
     public void do_command_find_donut() {
-        Shape shape = new Donut();
-        shape.setShapeName("donut");
-        double[] shapeD = {0, 0, 3, 5};
-        List<double[]> shapeData = new ArrayList<>();
-        shapeData.add(shapeD);
-        shape.setShapeData(shapeData);
-        List<Shape> oneShapeFound = new ArrayList<>();
-        oneShapeFound.add(shape);
-
-        when(shapeRepository.findAll()).thenReturn(oneShapeFound);
+        when(shapeRepository.findAll()).thenReturn(oneDonutFound);
 
         String line = "0 4";
         findShape.doCommand(null, line.split(" "));

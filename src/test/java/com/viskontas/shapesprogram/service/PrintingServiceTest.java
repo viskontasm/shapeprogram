@@ -8,8 +8,6 @@ import com.viskontas.shapesprogram.usecase.TriangleUsecase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static org.junit.Assert.*;
@@ -20,12 +18,13 @@ public class PrintingServiceTest {
     private final PrintStream originalOut = System.out;
     private PrintingService printingService;
     private ShapeUsecase triangleUsecase;
-    @Mock
-    ShapeFindServiceImpl shapeFindService;
+    private ShapeFindServiceImpl shapeFindService;
 
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
+
+        shapeFindService = new ShapeFindServiceImpl(null, null, null);
         printingService = new PrintingServiceImpl();
 
         Triangle triangle = new Triangle();
@@ -47,10 +46,8 @@ public class PrintingServiceTest {
         assertEquals(expectedString, outContent.toString().trim());
     }
 
-    //TODO
-    /*@Test
+    @Test
     public void print_inside_success_triangle() {
-        //may not work on OS not Windows
         double[] lookUpPoint = {1, 2};
         printingService.printInsideShapes(shapeFindService, triangleUsecase, lookUpPoint);
         String expectedString = "All triangles, which have inside coordinate x(1.0,2.0):\r\n" +
@@ -64,7 +61,7 @@ public class PrintingServiceTest {
         printingService.printInsideShapes(shapeFindService, triangleUsecase, lookUpPoint);
         String expectedString = "No such triangles.";
         assertEquals(expectedString, outContent.toString().trim());
-    }*/
+    }
 
     @Test
     public void print_shape_area() {

@@ -19,6 +19,7 @@ public abstract class ShapeUsecase {
 
     public List<Integer> getShapeIdsWhichInsideShape(double... lookUpPoint) {
         return IntStream.range(0, shape.getShapeData().size())
+                .parallel()
                 .filter(shapeDataId -> insideCalculation(shapeDataId, lookUpPoint))
                 .boxed()
                 .collect(Collectors.toCollection(ArrayList::new));

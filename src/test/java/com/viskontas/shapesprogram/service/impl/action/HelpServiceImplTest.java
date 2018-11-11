@@ -1,19 +1,15 @@
 package com.viskontas.shapesprogram.service.impl.action;
 
-import com.viskontas.shapesprogram.service.ActionDecisionService;
-import com.viskontas.shapesprogram.service.ActionResolverService;
-import com.viskontas.shapesprogram.usecase.ShapeUsecase;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
-import java.util.Map;
+import com.viskontas.shapesprogram.service.ActionResolverServiceTest;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-@Service
-@NoArgsConstructor
-public class HelpServiceImpl implements ActionResolverService {
+public class HelpServiceImplTest extends ActionResolverServiceTest {
 
-    @Override
-    public void doCommand(ActionDecisionService actionDecisionService, String... items) {
-        System.out.println("\n" +
+    @Test
+    public void do_comamnd_help() {
+        actionHelp.doCommand(null);
+        String expectedString = "" +
                 "================================SHAPES PROGRAM===========================================================\n" +
                 "\n" +
                 "Available shapes to add:\n" +
@@ -25,11 +21,8 @@ public class HelpServiceImpl implements ActionResolverService {
                 "i.e. it should print out shape S if the given point is inside S.\n" +
                 "\n" +
                 "Other commands available: 'exit', 'help'\n" +
-                "==========================================================================================================");
+                "==========================================================================================================";
+        assertEquals(expectedString, outContent.toString().trim());
     }
 
-    @Override
-    public Map<String, ShapeUsecase> getAvailableShapes() {
-        return null;
-    }
 }

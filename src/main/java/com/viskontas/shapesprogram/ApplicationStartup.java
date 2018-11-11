@@ -31,6 +31,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         //    acceptCommand();
         //}
 
+        //comment above method code and uncoment below to read directly from file
         FileServiceImpl fileService = new FileServiceImpl();
         fileService.readFromFile(actionDecisionService);
     }

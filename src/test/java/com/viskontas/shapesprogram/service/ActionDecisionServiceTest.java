@@ -74,8 +74,6 @@ public class ActionDecisionServiceTest {
                 .doCommand(actionDecisionService, line.split(" "));
     }
 
-    //TODO other shapes if will be
-
     @Test
     public void decicion_find_inside_shapes() {
         String line = "1 2";

@@ -6,6 +6,8 @@ import com.viskontas.shapesprogram.model.Triangle;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class ShapeUsecaseTest {
@@ -52,7 +54,6 @@ public class ShapeUsecaseTest {
         assertEquals(0, triangleUsecase.getShapeIdsWhichInsideShape(lookUpPoint).size());
     }
 
-
     @Test
     public void get_shape() {
         assertEquals(triangle, triangleUsecase.getShape());
@@ -61,12 +62,11 @@ public class ShapeUsecaseTest {
     @Test
     public void extract_raw_coordinates() {
         double[] triangleData = {0, 0, 0, 5, 5, 0};
-        //TODO array ?? assertEquals(triangleData, shapeUsecase.extractRawCoordinates(0));
+        assertTrue(Arrays.equals(triangleData, triangleUsecase.extractRawCoordinates(0)));
     }
 
     @Test
     public void circle_surface_area() {
         assertEquals(78.53981633974483, circleUsecase.calculateCircleSurfaceArea(5), 0);
     }
-
 }
