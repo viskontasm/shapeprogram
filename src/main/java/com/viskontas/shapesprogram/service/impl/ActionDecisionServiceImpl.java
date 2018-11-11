@@ -2,12 +2,12 @@ package com.viskontas.shapesprogram.service.impl;
 
 import com.viskontas.shapesprogram.service.ActionDecisionService;
 import com.viskontas.shapesprogram.service.ActionResolverService;
-import com.viskontas.shapesprogram.service.impl.action.ShapeSaveServiceImpl;
-import com.viskontas.shapesprogram.service.impl.action.ShapeFindServiceImpl;
-import com.viskontas.shapesprogram.service.impl.action.HelpServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ExitServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.FileServiceImpl;
-import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
+import com.viskontas.shapesprogram.service.impl.action.HelpServiceImpl;
+import com.viskontas.shapesprogram.service.impl.action.ShapeDeleteServiceImpl;
+import com.viskontas.shapesprogram.service.impl.action.ShapeFindServiceImpl;
+import com.viskontas.shapesprogram.service.impl.action.ShapeSaveServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
@@ -22,6 +22,7 @@ public class ActionDecisionServiceImpl implements ActionDecisionService {
     @Autowired
     public ActionDecisionServiceImpl(ShapeSaveServiceImpl shapeSaveService,
                                      ShapeFindServiceImpl shapeFindService,
+                                     ShapeDeleteServiceImpl shapeDeleteService,
                                      HelpServiceImpl helperService,
                                      ExitServiceImpl exitService,
                                      FileServiceImpl fileService) {
@@ -29,6 +30,7 @@ public class ActionDecisionServiceImpl implements ActionDecisionService {
         availableCommands.put("help", helperService);
         availableCommands.put("exit", exitService);
         availableCommands.put("find", shapeFindService);
+        availableCommands.put("delete", shapeDeleteService);
         availableCommands.put("file", fileService);
         
         availableCommands.put("triangle", shapeSaveService);

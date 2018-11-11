@@ -10,8 +10,6 @@ import com.viskontas.shapesprogram.usecase.ShapeUsecase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ShapeSaveServiceImpl extends ShapeService {
@@ -26,16 +24,20 @@ public class ShapeSaveServiceImpl extends ShapeService {
     @Override
     public void doCommand(ActionDecisionService actionDecisionService, String... items) {
         try {
-            String firstItem = items[0];
-            if (availableShapes.keySet().contains(firstItem) && shapeValidatorService.isOkShapeName(firstItem)) {
-                ShapeUsecase shapeUsecase = availableShapes.get(firstItem);
-                validateShapeForSave(shapeUsecase.getShape(), items);
-                fillShapeWithData(shapeUsecase.getShape(), items);
-                createOrUpdateShape(shapeUsecase.getShape());
-                printSavedShape(shapeUsecase);
-            }
+            save(items);
         } catch (ShapeException e) {
             System.out.println("ERROR: " + e.getMessage() + Arrays.toString(items));
+        }
+    }
+
+    private void save(String... items) throws ShapeException {
+        String firstItem = items[0];
+        if (availableShapes.keySet().contains(firstItem) && shapeValidatorService.isOkShapeName(firstItem)) {
+            ShapeUsecase shapeUsecase = availableShapes.get(firstItem);
+            validateShapeForSave(shapeUsecase.getShape(), items);
+            fillShapeWithData(shapeUsecase.getShape(), items);
+            createOrUpdateShape(shapeUsecase.getShape());
+            printSavedShape(shapeUsecase);
         }
     }
 

@@ -11,4 +11,5 @@ public interface ShapeValidatorService {
    void validateLookUpCoordinates(int valuesCount, String... shapeValues) throws ShapeException;
    void  validateDouble(String shapeName) throws ShapeException;
    void validateShapesAvailability(List<Shape> shape) throws ShapeException;
+   void validateDeteCommand(List<String> availableShapes, String... values) throws ShapeException;
 }

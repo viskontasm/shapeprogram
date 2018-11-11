@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Shape {
+public class Shape {
 
     @Id
     @GeneratedValue
@@ -35,7 +35,7 @@ public abstract class Shape {
     }
 
     public List<double[]> getShapeData() {
-       return Collections.unmodifiableList(shapeData);
+       return shapeData;
     }
 
     public int getShapeDataCount() {

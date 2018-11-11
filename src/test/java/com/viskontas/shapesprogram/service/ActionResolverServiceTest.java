@@ -5,6 +5,7 @@ import com.viskontas.shapesprogram.service.impl.PrintingServiceImpl;
 import com.viskontas.shapesprogram.service.impl.ShapeValidatorServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ExitServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.HelpServiceImpl;
+import com.viskontas.shapesprogram.service.impl.action.ShapeDeleteServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ShapeFindServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ShapeSaveServiceImpl;
 import org.junit.After;
@@ -24,6 +25,7 @@ public class ActionResolverServiceTest {
     private ActionResolverService actionExit;
     protected ActionResolverService saveShape;
     protected ActionResolverService findShape;
+    protected ActionResolverService deleteShape;
 
     @Mock
     protected ShapeRepository shapeRepository;
@@ -44,6 +46,7 @@ public class ActionResolverServiceTest {
         actionExit = new ExitServiceImpl();
         saveShape = new ShapeSaveServiceImpl(shapeValidatorService, shapeRepository, printingService);
         findShape = new ShapeFindServiceImpl(shapeValidatorService, shapeRepository, printingService);
+        deleteShape = new ShapeDeleteServiceImpl(shapeValidatorService, shapeRepository, printingService);
     }
 
     @After

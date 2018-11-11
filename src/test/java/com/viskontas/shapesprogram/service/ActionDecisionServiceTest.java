@@ -5,6 +5,7 @@ import com.viskontas.shapesprogram.service.impl.ShapeValidatorServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ExitServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.FileServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.HelpServiceImpl;
+import com.viskontas.shapesprogram.service.impl.action.ShapeDeleteServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ShapeFindServiceImpl;
 import com.viskontas.shapesprogram.service.impl.action.ShapeSaveServiceImpl;
 import org.junit.Before;
@@ -26,6 +27,8 @@ public class ActionDecisionServiceTest {
     @Mock
     private ShapeFindServiceImpl shapeFindService;
     @Mock
+    private ShapeDeleteServiceImpl shapeDeleteService;
+    @Mock
     private HelpServiceImpl helperService;
     @Mock
     private ExitServiceImpl exitServiceImpl;
@@ -37,7 +40,7 @@ public class ActionDecisionServiceTest {
     @Before
     public void setUp() {
         ShapeValidatorServiceImpl shapeValidator = new ShapeValidatorServiceImpl();
-        actionDecisionService = new ActionDecisionServiceImpl(shapeSaveService, shapeFindService,
+        actionDecisionService = new ActionDecisionServiceImpl(shapeSaveService, shapeFindService, shapeDeleteService,
                 helperService, exitServiceImpl, fileService);
     }
 

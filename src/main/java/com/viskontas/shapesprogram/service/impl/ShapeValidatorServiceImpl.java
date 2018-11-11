@@ -54,4 +54,20 @@ public class ShapeValidatorServiceImpl implements ShapeValidatorService {
             throw new ShapeException(error);
         }
     }
+
+    @Override
+    public void validateDeteCommand(List<String> availableShapes, String... values) throws ShapeException {
+        boolean hasTwoStrings = ValidatorUtil.enoughValues(2).test(values.length).isValid();
+        boolean correctShapeId = false;
+        if (hasTwoStrings) {
+            String[] command = values[1].split("-");
+            correctShapeId = ValidatorUtil.enoughValues(2).test(command.length).isValid()
+                    && ValidatorUtil.NOT_NULL_STRING.and(ValidatorUtil.NOT_EMPTY_STRING).test(command[0]).isValid()
+                    && ValidatorUtil.availableShape(command[0]).test(availableShapes).isValid()
+                    && ValidatorUtil.IS_INTEGER.test(command[1]).isValid();
+        }
+        if (!hasTwoStrings || !correctShapeId) {
+            throw new ShapeException("Not correct delete command: ");
+        }
+    }
 }

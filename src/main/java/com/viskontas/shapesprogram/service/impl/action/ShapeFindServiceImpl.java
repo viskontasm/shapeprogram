@@ -7,13 +7,11 @@ import com.viskontas.shapesprogram.service.PrintingService;
 import com.viskontas.shapesprogram.service.ShapeValidatorService;
 import com.viskontas.shapesprogram.service.validator.exception.ShapeException;
 import com.viskontas.shapesprogram.usecase.ShapeUsecase;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 
-@Data
 @Service
 public class ShapeFindServiceImpl extends ShapeService {
 
@@ -30,13 +28,13 @@ public class ShapeFindServiceImpl extends ShapeService {
     public void doCommand(ActionDecisionService actionDecisionService, String... items) {
         try {
             shapeValidatorService.validateLookUpCoordinates(2, items);
-            lookUpInsideShapes(items);
+            find(items);
         } catch (ShapeException e) {
             System.out.println("ERROR: " + e.getMessage() + Arrays.toString(items));
         }
     }
 
-    private void lookUpInsideShapes(String... line) throws ShapeException {
+    private void find(String... line) throws ShapeException {
         totalArea = 0;
         List<Shape> shapes = shapeRepository.findAll();
         shapeValidatorService.validateShapesAvailability(shapes);
