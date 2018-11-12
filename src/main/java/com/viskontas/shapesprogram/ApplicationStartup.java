@@ -1,18 +1,11 @@
 package com.viskontas.shapesprogram;
 
 import com.viskontas.shapesprogram.service.ActionDecisionService;
-import com.viskontas.shapesprogram.service.impl.action.FileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 @Component
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {

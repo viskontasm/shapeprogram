@@ -9,8 +9,12 @@
  When a pair of numbers entered 'x y', the application should print out all the shapes that include
  that point, i.e. it should print out shape S if the given point is inside S(line included).
 
+ Shape delete is available using shape identificator for example:
+    'delete triangle-0'
+    'delete circle-10'
+
  Other commands available:
-	'exit' - exit program,
+	'exit' - exit program
 	'help' - ask for help
 	'file' - read from file located in resources 'sample-data.txt'
 ==========================================================================================================
