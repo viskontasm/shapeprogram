@@ -1,6 +1,6 @@
 build ant run:
 
-    java - jar shapesprogram-0.0.1-SNAPSHOT.jar
+    java -jar shapesprogram-0.0.1-SNAPSHOT.jar
 
 **What is done:**<br />
 
@@ -9,7 +9,8 @@ build ant run:
 **Extras:**
 
 6)Think about implementing it in a way which would perform well even for a very large number shapes (e.g., tens of millions, but assuming it can still be held in the program memory).
-All shapes are saved by their type to their object (Donut, Triangle...) and these objects do have coordinates list. This helps saving memory, when not new object is created for every new shape.
+
+   All shapes are saved by their type to their object (Donut, Triangle...) and these objects do have coordinates list. This helps saving memory, when not new object is created for every new shape.
 
     public class Shape {
         private long id;
